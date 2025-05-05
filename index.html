@@ -58,50 +58,47 @@
       text-align: left;
     }
 
-    .input-wrapper {
+    .input-group {
       position: relative;
+      display: flex;
+      align-items: center;
     }
 
-    input[type="email"],
-    input[type="password"] {
+    .input-group input {
       width: 100%;
       font-size: 1rem;
-      padding: 0.8rem;
-      padding-left: 1.2rem;
-      margin-bottom: 1.2rem;
       border-radius: 8px;
+      padding: 0.8rem 1.2rem;
+      margin-bottom: 1.2rem;
       border: 1px solid #ccc;
+      text-align: left;
     }
 
     .toggle-password {
       position: absolute;
-      top: 50%;
       right: 1rem;
+      top: 50%;
       transform: translateY(-50%);
       background: none;
       border: none;
       cursor: pointer;
       padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .toggle-password svg {
-      width: 24px;
-      height: 24px;
+      width: 1.2rem;
+      height: 1.2rem;
       fill: #888;
     }
 
     button[type="submit"] {
-      width: 100%;
       padding: 0.8rem;
       background: #222;
       color: white;
       border: none;
-      border-radius: 8px;
       font-weight: bold;
       font-size: 1rem;
+      border-radius: 8px;
       cursor: pointer;
     }
 
@@ -122,13 +119,11 @@
         <input type="email" id="email" name="email" required placeholder="Value" />
 
         <label for="password">Password</label>
-        <div class="input-wrapper">
+        <div class="input-group">
           <input type="password" id="password" name="password" required placeholder="Value" />
           <button type="button" class="toggle-password" onclick="togglePassword()">
-            <!-- Eye icon SVG -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
-              <circle cx="12" cy="12" r="2.5"/>
+            <svg viewBox="0 0 24 24">
+              <path id="eye-icon" d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5zm0 13c-3 0-5.5-2.5-5.5-5.5S9 6.5 12 6.5s5.5 2.5 5.5 5.5-2.5 5.5-5.5 5.5z"/>
             </svg>
           </button>
         </div>
@@ -141,8 +136,15 @@
   <script>
     function togglePassword() {
       const passwordInput = document.getElementById("password");
-      const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-      passwordInput.setAttribute("type", type);
+      const eyeIcon = document.getElementById("eye-icon");
+
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.setAttribute("d", "M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5z");
+      } else {
+        passwordInput.type = "password";
+        eyeIcon.setAttribute("d", "M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5zm0 13c-3 0-5.5-2.5-5.5-5.5S9 6.5 12 6.5s5.5 2.5 5.5 5.5-2.5 5.5-5.5 5.5z");
+      }
     }
 
     const form = document.querySelector("#form");
