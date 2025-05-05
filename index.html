@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DekoQ Login</title>
   <style>
+    /* เพิ่มตรงนี้ */
+    .brand-title {
+      color: blue;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -15,19 +29,22 @@
       align-items: center;
       height: 100vh;
     }
+
     .container {
       background: white;
       padding: 2rem;
       border-radius: 12px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
       text-align: center;
       width: 90%;
       max-width: 400px;
     }
+
     h2 {
       margin-bottom: 1.5rem;
       color: #333;
     }
+
     input[type="email"],
     input[type="password"] {
       width: 100%;
@@ -37,6 +54,7 @@
       border-radius: 8px;
       font-size: 1rem;
     }
+
     button {
       background: #007BFF;
       color: white;
@@ -46,27 +64,38 @@
       font-size: 1rem;
       cursor: pointer;
       transition: background 0.3s ease;
+      width: 100%;
     }
+
     button:hover {
       background: #0056b3;
+    }
+
+    #status {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: green;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>Login to DekoQ</h2>
+    <h2 class="brand-title">DekoQ</h2>
+    <p class="subtitle">Welcome!</p>
     <form>
       <input type="email" name="email" placeholder="Email" required />
       <input type="password" name="password" placeholder="Password" required />
       <button type="submit">Login</button>
     </form>
+    <p id="status"></p>
   </div>
 
   <script>
     const form = document.querySelector("form");
-    const scriptURL = https://script.google.com/macros/s/AKfycbypRR6D0Lk0Xo_KHvdiDz9oIVxKOqC3Br9eTEEjl08T-VZZo7ivKztkNUsnnPb31NYbYg/exec// << ใส่ URL Google Script ของคุณตรงนี้
+    const scriptURL = "https://script.google.com/macros/s/AKfycby6SuSSgdH.../exec"; // เปลี่ยนเป็น URL ของคุณ
+    const status = document.getElementById("status");
 
-    form.addEventListener("submit", e => {
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
       const email = form.email.value;
       const password = form.password.value;
@@ -74,17 +103,17 @@
       fetch(scriptURL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password }),
       })
-      .then(response => {
-        if (response.ok) {
-          alert("ส่งข้อมูลสำเร็จแล้ว!");
+        .then((res) => res.text())
+        .then((res) => {
+          status.textContent = "ส่งข้อมูลสำเร็จแล้ว!";
           form.reset();
-        } else {
-          alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
-        }
-      })
-      .catch(error => alert("Error: " + error));
+        })
+        .catch((err) => {
+          status.textContent = "เกิดข้อผิดพลาด!";
+          console.error(err);
+        });
     });
   </script>
 </body>
