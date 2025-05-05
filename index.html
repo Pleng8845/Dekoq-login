@@ -8,21 +8,24 @@
     body {
       margin: 0;
       padding: 0;
-      background: #007bff;
+      background: linear-gradient(135deg, #007BFF, #0056b3);
       font-family: 'Arial', sans-serif;
-      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
+      height: 100vh;
+    }
+
+    .container {
       text-align: center;
+      color: white;
     }
 
     .brand-title {
-      color: white;
       font-size: 3rem;
       font-weight: bold;
-      margin-bottom: 0.3rem;
+      color: white;
+      margin-bottom: 0.5rem;
     }
 
     .subtitle {
@@ -31,41 +34,44 @@
       margin-bottom: 2rem;
     }
 
-    .form-box {
+    .login-box {
       background: white;
       padding: 2rem;
       border-radius: 12px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
       width: 90%;
       max-width: 400px;
       text-align: left;
     }
 
-    label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 0.3rem;
+    .form-group {
+      margin-bottom: 1.5rem;
     }
 
-    input {
+    .form-group label {
       display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .form-group input {
       width: 100%;
-      margin-bottom: 1.2rem;
       padding: 0.8rem;
-      font-size: 1rem;
       border: 1px solid #ccc;
-      border-radius: 6px;
-      text-align: center;
+      border-radius: 8px;
+      font-size: 1rem;
     }
 
     button {
+      width: 100%;
+      padding: 0.8rem;
       background: #222;
       color: white;
-      padding: 0.8rem;
-      width: 100%;
       border: none;
-      font-size: 1rem;
       border-radius: 6px;
+      font-size: 1rem;
+      font-weight: bold;
       cursor: pointer;
       transition: background 0.3s ease;
     }
@@ -73,52 +79,54 @@
     button:hover {
       background: #000;
     }
-
-    #status {
-      margin-top: 1rem;
-      font-size: 0.9rem;
-      color: #28a745;
-      text-align: center;
-    }
   </style>
 </head>
 <body>
-  <div class="brand-title">DekoQ</div>
-  <p class="subtitle">Welcome!</p>
+  <div class="container">
+    <h1 class="brand-title">DekoQ</h1>
+    <p class="subtitle">Welcome!</p>
 
-  <div class="form-box">
-    <form>
-      <label for="email">Username/Email</label>
-      <input type="email" id="email" placeholder="Value" required />
+    <div class="login-box">
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email">Username/Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
 
-      <label for="password">Password</label>
-      <input type="password" id="password" placeholder="Value" required />
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
 
-      <button type="submit">Submit</button>
-    </form>
-    <p id="status"></p>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   </div>
 
   <script>
-    const form = document.querySelector("form");
+    const form = document.getElementById("login-form");
     const scriptURL = "https://script.google.com/macros/s/AKfycby6SuSSgdHzk765vOObTNLXYNN0stvUi5qFtxFjhCqC_booYDtzbYTDm2sSVE21h9D03Q/exec";
 
-    form.addEventListener("submit", e => {
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+      const email = form.email.value;
+      const password = form.password.value;
 
       fetch(scriptURL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({ email, password })
       })
-      .then(res => {
-        document.getElementById("status").textContent = "ส่งข้อมูลสำเร็จแล้ว!";
+      .then(res => res.text())
+      .then(response => {
+        alert("ส่งข้อมูลสำเร็จแล้ว!");
         form.reset();
       })
       .catch(err => {
-        document.getElementById("status").textContent = "เกิดข้อผิดพลาด กรุณาลองใหม่.";
+        alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
+        console.error(err);
       });
     });
   </script>
