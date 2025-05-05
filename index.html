@@ -58,11 +58,20 @@
       text-align: left;
     }
 
+    input[type="email"] {
+      padding: 0.8rem;
+      padding-left: 1.2rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      text-align: left;
+      font-size: 1rem;
+    }
+
     .password-wrapper {
       position: relative;
       display: flex;
       align-items: center;
-      margin-bottom: 1.2rem;
     }
 
     .password-wrapper input {
@@ -75,11 +84,11 @@
 
     .toggle-password {
       position: absolute;
-      right: 12px;
-      cursor: pointer;
+      right: 10px;
       background: none;
       border: none;
       padding: 0;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -89,15 +98,6 @@
       width: 20px;
       height: 20px;
       fill: #888;
-    }
-
-    input[type="email"] {
-      padding: 0.8rem;
-      padding-left: 1.2rem;
-      margin-bottom: 1.2rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      text-align: left;
     }
 
     button[type="submit"] {
@@ -133,7 +133,7 @@
           <input type="password" id="password" name="password" required placeholder="Value" />
           <button type="button" class="toggle-password" onclick="togglePassword()">
             <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-              <path d="M572.52 241.4c-1.38-1.8-34.5-45.3-88.63-89.44C423.27 107.67 360.2 80 288 80s-135.3 27.67-195.9 71.96C38.5 196.1 5.38 239.6 4 241.4a32.26 32.26 0 0 0 0 29.2c1.38 1.8 34.5 45.3 88.63 89.44C152.73 404.33 215.8 432 288 432s135.3-27.67 195.9-71.96c54.13-44.14 87.25-87.64 88.63-89.44a32.26 32.26 0 0 0-.01-29.2zM288 384c-88.22 0-159.2-45.79-211.8-89.6C84.62 267.52 65.28 245.88 57.88 236c7.41-9.86 26.75-31.5 58.29-58.4C128.8 122.79 199.8 80 288 80s159.2 42.79 211.8 97.6c31.54 26.9 50.88 48.54 58.29 58.4-7.41 9.86-26.75 31.5-58.29 58.4C447.2 338.21 376.2 384 288 384zm0-160a64 64 0 1 0 0 128 64 64 0 0 0 0-128z"/>
+              <path d="M572.52 241.4C518.41 163.1 412.79 96 288 96S57.59 163.1 3.48 241.4a32.1 32.1 0 0 0 0 29.2C57.59 348.9 163.21 416 288 416s230.41-67.1 284.52-145.4a32.1 32.1 0 0 0 0-29.2zM288 368c-79.4 0-144-64.6-144-144s64.6-144 144-144 144 64.6 144 144-64.6 144-144 144zm0-224a80 80 0 1 0 80 80 80 80 0 0 0-80-80z"/>
             </svg>
           </button>
         </div>
@@ -170,15 +170,14 @@
     function togglePassword() {
       const passwordInput = document.getElementById("password");
       const eyeIcon = document.getElementById("eyeIcon");
+      const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+      passwordInput.setAttribute("type", type);
 
-      if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        eyeIcon.innerHTML = `
-          <path d="M320 128c-31.4 0-59.5 11.6-81.4 30.7l-30.6-30.6c-5.4-5.4-14.2-5.4-19.6 0s-5.4 14.2 0 19.6l30.6 30.6C147.3 225.3 128 256 128 256s51.1 64 160 64c35.3 0 68-11.4 94.4-30.6l30.6 30.6c5.4 5.4 14.2 5.4 19.6 0s5.4-14.2 0-19.6l-30.6-30.6C428.7 286.7 448 256 448 256s-51.1-64-160-64z"/>`;
+      // เปลี่ยนเป็นตาเปิดหรือปิดตามสถานะ
+      if (type === "password") {
+        eyeIcon.innerHTML = `<path d="M572.52 241.4C518.41 163.1 412.79 96 288 96S57.59 163.1 3.48 241.4a32.1 32.1 0 0 0 0 29.2C57.59 348.9 163.21 416 288 416s230.41-67.1 284.52-145.4a32.1 32.1 0 0 0 0-29.2zM288 368c-79.4 0-144-64.6-144-144s64.6-144 144-144 144 64.6 144 144-64.6 144-144 144zm0-224a80 80 0 1 0 80 80 80 80 0 0 0-80-80z"/>`;
       } else {
-        passwordInput.type = "password";
-        eyeIcon.innerHTML = `
-          <path d="M572.52 241.4c-1.38-1.8-34.5-45.3-88.63-89.44C423.27 107.67 360.2 80 288 80s-135.3 27.67-195.9 71.96C38.5 196.1 5.38 239.6 4 241.4a32.26 32.26 0 0 0 0 29.2c1.38 1.8 34.5 45.3 88.63 89.44C152.73 404.33 215.8 432 288 432s135.3-27.67 195.9-71.96c54.13-44.14 87.25-87.64 88.63-89.44a32.26 32.26 0 0 0-.01-29.2zM288 384c-88.22 0-159.2-45.79-211.8-89.6C84.62 267.52 65.28 245.88 57.88 236c7.41-9.86 26.75-31.5 58.29-58.4C128.8 122.79 199.8 80 288 80s159.2 42.79 211.8 97.6c31.54 26.9 50.88 48.54 58.29 58.4-7.41 9.86-26.75 31.5-58.29 58.4C447.2 338.21 376.2 384 288 384zm0-160a64 64 0 1 0 0 128 64 64 0 0 0 0-128z"/>`;
+        eyeIcon.innerHTML = `<path d="M634.87 469.14l-86.27-67.2A335.56 335.56 0 0 0 640 256c-49.9-77.1-159.1-160-288-160a325.78 325.78 0 0 0-121.17 24.27L39.13 10.34A16 16 0 0 0 17.14 34l588.73 458.8a16 16 0 0 0 22.99-23.66zM320 400c-74.56 0-142.73-32.37-192.27-84.25l41.6-32.45C199 312.35 242.17 336 288 336a144 144 0 0 0 123.44-71.09l38.54 30.03A207.62 207.62 0 0 1 320 400z"/>`;
       }
     }
   </script>
