@@ -2,13 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DekoQ Login</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       padding: 0;
@@ -19,24 +16,20 @@
       align-items: center;
       height: 100vh;
     }
-
     .container {
       text-align: center;
       color: white;
       margin-bottom: 1rem;
     }
-
     .container h1 {
       font-size: 3rem;
       margin: 0;
     }
-
     .container p {
       font-size: 1.2rem;
       margin-top: 0.5rem;
       margin-bottom: 2rem;
     }
-
     .login-box {
       background: white;
       padding: 2rem;
@@ -45,25 +38,21 @@
       width: 90%;
       max-width: 400px;
     }
-
     form {
       display: flex;
       flex-direction: column;
     }
-
     label {
       font-weight: bold;
       margin-bottom: 0.3rem;
       color: #000;
       text-align: left;
     }
-
     .password-wrapper {
       position: relative;
       display: flex;
       align-items: center;
     }
-
     .password-wrapper input {
       width: 100%;
       font-size: 1rem;
@@ -71,26 +60,23 @@
       padding: 0.8rem 2.5rem 0.8rem 1.2rem;
       border: 1px solid #ccc;
     }
-
     .toggle-password {
       position: absolute;
       right: 10px;
       cursor: pointer;
       background: none;
       border: none;
+      width: 24px;
+      height: 24px;
       padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
-
     .toggle-password svg {
-      width: 20px;
-      height: 20px;
+      width: 100%;
+      height: 100%;
       fill: #888;
     }
-
-    input[type="email"] {
+    input[type="email"],
+    input[type="password"] {
       padding: 0.8rem;
       padding-left: 1.2rem;
       margin-bottom: 1.2rem;
@@ -99,8 +85,7 @@
       text-align: left;
       font-size: 1rem;
     }
-
-    button {
+    button[type="submit"] {
       padding: 0.8rem;
       background: #222;
       color: white;
@@ -111,8 +96,7 @@
       border-radius: 8px;
       margin-top: 1rem;
     }
-
-    button:hover {
+    button[type="submit"]:hover {
       background: #000;
     }
   </style>
@@ -131,14 +115,12 @@
         <label for="password">Password</label>
         <div class="password-wrapper">
           <input type="password" id="password" name="password" required placeholder="Value" />
-          <button type="button" class="toggle-password" onclick="togglePassword()" aria-label="Toggle Password">
-            <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M12 5c-7.633 0-11 6.998-11 6.998s3.367 6.999 11 6.999 11-6.999 11-6.999S19.633 5 12 5zm0 11.248a4.249 4.249 0 1 1 0-8.498 4.249 4.249 0 0 1 0 8.498z"/>
-              <circle cx="12" cy="12" r="2.5"/>
+          <button type="button" class="toggle-password" onclick="togglePassword()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 5c-7.633 0-12 7-12 7s4.367 7 12 7 12-7 12-7-4.367-7-12-7zm0 12c-2.761 0-5-2.238-5-5s2.239-5 5-5 5 2.238 5 5-2.239 5-5 5zm0-8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3z"/>
             </svg>
           </button>
         </div>
-
         <button type="submit">Submit</button>
       </form>
     </div>
@@ -170,14 +152,8 @@
 
     function togglePassword() {
       const passwordInput = document.getElementById("password");
-      const eyeIcon = document.getElementById("eyeIcon");
       const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
       passwordInput.setAttribute("type", type);
-
-      // เปลี่ยนไอคอนตาเมื่อ toggle
-      eyeIcon.innerHTML = type === "password"
-        ? '<path d="M12 5c-7.633 0-11 6.998-11 6.998s3.367 6.999 11 6.999 11-6.999 11-6.999S19.633 5 12 5zm0 11.248a4.249 4.249 0 1 1 0-8.498 4.249 4.249 0 0 1 0 8.498z"/><circle cx="12" cy="12" r="2.5"/>'
-        : '<path d="M1 1l22 22M12 5c-7.633 0-11 6.998-11 6.998S4.367 19 12 19c2.161 0 4.137-.72 5.799-1.943L1 1z"/>';
     }
   </script>
 </body>
