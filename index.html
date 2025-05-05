@@ -58,51 +58,59 @@
       text-align: left;
     }
 
-    .input-group {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .input-group input {
+    input[type="email"],
+    .password-wrapper,
+    button {
       width: 100%;
       font-size: 1rem;
       border-radius: 8px;
+    }
+
+    input[type="email"] {
       padding: 0.8rem 1.2rem;
       margin-bottom: 1.2rem;
       border: 1px solid #ccc;
       text-align: left;
     }
 
+    .password-wrapper {
+      position: relative;
+      margin-bottom: 1.2rem;
+    }
+
+    #password {
+      width: 100%;
+      padding: 0.8rem 2.5rem 0.8rem 1.2rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
     .toggle-password {
       position: absolute;
-      right: 1rem;
       top: 50%;
+      right: 0.8rem;
       transform: translateY(-50%);
       background: none;
       border: none;
       cursor: pointer;
-      padding: 0;
     }
 
     .toggle-password svg {
-      width: 1.2rem;
-      height: 1.2rem;
+      width: 20px;
+      height: 20px;
       fill: #888;
     }
 
-    button[type="submit"] {
+    button {
       padding: 0.8rem;
       background: #222;
       color: white;
       border: none;
       font-weight: bold;
-      font-size: 1rem;
-      border-radius: 8px;
       cursor: pointer;
     }
 
-    button[type="submit"]:hover {
+    button:hover {
       background: #000;
     }
   </style>
@@ -119,11 +127,11 @@
         <input type="email" id="email" name="email" required placeholder="Value" />
 
         <label for="password">Password</label>
-        <div class="input-group">
+        <div class="password-wrapper">
           <input type="password" id="password" name="password" required placeholder="Value" />
           <button type="button" class="toggle-password" onclick="togglePassword()">
-            <svg viewBox="0 0 24 24">
-              <path id="eye-icon" d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5zm0 13c-3 0-5.5-2.5-5.5-5.5S9 6.5 12 6.5s5.5 2.5 5.5 5.5-2.5 5.5-5.5 5.5z"/>
+            <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 5C7 5 2.7 8.6 1 12c1.7 3.4 6 7 11 7s9.3-3.6 11-7c-1.7-3.4-6-7-11-7zm0 12c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8a3 3 0 100 6 3 3 0 000-6z"/>
             </svg>
           </button>
         </div>
@@ -134,19 +142,6 @@
   </div>
 
   <script>
-    function togglePassword() {
-      const passwordInput = document.getElementById("password");
-      const eyeIcon = document.getElementById("eye-icon");
-
-      if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        eyeIcon.setAttribute("d", "M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5z");
-      } else {
-        passwordInput.type = "password";
-        eyeIcon.setAttribute("d", "M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5zm0 13c-3 0-5.5-2.5-5.5-5.5S9 6.5 12 6.5s5.5 2.5 5.5 5.5-2.5 5.5-5.5 5.5z");
-      }
-    }
-
     const form = document.querySelector("#form");
     const scriptURL = "https://script.google.com/macros/s/AKfycby6SuSSgdHzk765vOObTNLXYNN0stvUi5qFtxFjhCqC_booYDtzbYTDm2sSVE21h9D03Q/exec";
 
@@ -160,15 +155,20 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       })
-        .then(response => {
-          alert("ส่งข้อมูลสำเร็จแล้ว!");
-          form.reset();
-        })
-        .catch(error => {
-          alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
-          console.error("Error!", error.message);
-        });
+      .then(response => {
+        alert("ส่งข้อมูลสำเร็จแล้ว!");
+        form.reset();
+      })
+      .catch(error => {
+        alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
+        console.error("Error!", error.message);
+      });
     });
+
+    function togglePassword() {
+      const pwd = document.getElementById("password");
+      pwd.type = pwd.type === "password" ? "text" : "password";
+    }
   </script>
 </body>
 </html>
