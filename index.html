@@ -14,10 +14,24 @@
       background: linear-gradient(135deg, #007BFF, #0056b3);
       font-family: Arial, sans-serif;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
     }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.3rem;
+      color: white;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: white;
+    }
+
     .login-box {
       background: white;
       padding: 2rem;
@@ -27,16 +41,7 @@
       max-width: 400px;
       text-align: center;
     }
-    .login-box h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.3rem;
-      color: #000;
-    }
-    .login-box p {
-      font-size: 1.1rem;
-      color: #444;
-      margin-bottom: 2rem;
-    }
+
     label {
       font-weight: bold;
       margin-bottom: 0.3rem;
@@ -44,23 +49,26 @@
       text-align: left;
       color: #000;
     }
+
     .form-group {
       margin-bottom: 1.5rem;
     }
+
     input[type="text"],
     input[type="password"] {
       width: 100%;
-      padding: 0.8rem 2.5rem 0.8rem 1rem; /* ล็อคพื้นที่ด้านขวาสำหรับ icon */
+      padding: 0.8rem 2.5rem 0.8rem 1rem;
       border: 1px solid #ccc;
       border-radius: 8px;
       font-size: 1rem;
       height: 48px;
-      transition: none;
     }
+
     .input-group {
       position: relative;
       width: 100%;
     }
+
     .toggle-password {
       position: absolute;
       top: 50%;
@@ -73,14 +81,17 @@
       height: 24px;
       padding: 0;
     }
+
     .toggle-password svg {
       width: 100%;
       height: 100%;
       fill: #facc15;
     }
+
     .hidden {
       display: none;
     }
+
     button[type="submit"] {
       width: 100%;
       background: #000;
@@ -95,9 +106,10 @@
   </style>
 </head>
 <body>
+  <h1>DekoQ</h1>
+  <p>Welcome!</p>
+
   <div class="login-box">
-    <h1>DekoQ</h1>
-    <p>Welcome!</p>
     <form>
       <div class="form-group">
         <label for="email">Username / Email</label>
@@ -121,21 +133,4 @@
           </button>
         </div>
       </div>
-      <button type="submit">Submit</button>
-    </form>
-  </div>
-
-  <script>
-    function togglePassword() {
-      const pwd = document.getElementById("password");
-      const eyeOpen = document.getElementById("eye-open");
-      const eyeClosed = document.getElementById("eye-closed");
-
-      const isClosed = pwd.type === "password";
-      pwd.type = isClosed ? "text" : "password";
-      eyeOpen.classList.toggle("hidden", !isClosed);
-      eyeClosed.classList.toggle("hidden", isClosed);
-    }
-  </script>
-</body>
-</html>
+     
