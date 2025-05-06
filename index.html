@@ -8,7 +8,6 @@
     * {
       box-sizing: border-box;
     }
-
     body {
       margin: 0;
       padding: 0;
@@ -19,24 +18,20 @@
       align-items: center;
       height: 100vh;
     }
-
     .container {
       text-align: center;
       color: white;
       margin-bottom: 1rem;
     }
-
     .container h1 {
       font-size: 3rem;
       margin: 0;
     }
-
     .container p {
       font-size: 1.2rem;
       margin-top: 0.5rem;
       margin-bottom: 2rem;
     }
-
     .login-box {
       background: white;
       padding: 2rem;
@@ -45,42 +40,42 @@
       width: 90%;
       max-width: 400px;
     }
-
     label {
       font-weight: bold;
       margin-bottom: 0.3rem;
       color: #000;
-      display: block;
       text-align: left;
+      display: block;
     }
-
-    .password-wrapper {
-      position: relative;
-      width: 100%;
-    }
-
-    input[type="email"],
-    input[type="password"] {
+    input[type="email"], input[type="password"] {
       width: 100%;
       font-size: 1rem;
-      padding: 0.8rem 2.5rem 0.8rem 1.2rem;
+      padding: 0.8rem;
+      padding-right: 2.5rem;
       border: 1px solid #ccc;
       border-radius: 8px;
       margin-bottom: 1rem;
-      transition: all 0.2s ease-in-out;
     }
-
-    .password-wrapper svg {
+    .password-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .toggle-eye {
       position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
+      right: 10px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+    }
+    .toggle-eye svg {
       width: 24px;
       height: 24px;
-      cursor: pointer;
-      fill: #888;
+      fill: #555;
     }
-
     button[type="submit"] {
       width: 100%;
       padding: 0.8rem;
@@ -91,11 +86,6 @@
       cursor: pointer;
       font-size: 1rem;
       border-radius: 8px;
-      margin-top: 0.5rem;
-    }
-
-    button:hover {
-      background: #000;
     }
   </style>
 </head>
@@ -113,11 +103,12 @@
         <label for="password">Password</label>
         <div class="password-wrapper">
           <input type="password" id="password" name="password" required placeholder="Value" />
-          <svg id="togglePassword" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path id="eyeIcon" d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12c-2.76 0-5-2.24-5-5s2.24-5 5-5
-              5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3
-              3-1.34 3-3-1.34-3-3-3z"/>
-          </svg>
+          <button type="button" class="toggle-eye" onclick="togglePassword()">
+            <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+              <circle cx="12" cy="12" r="2.5"/>
+            </svg>
+          </button>
         </div>
 
         <button type="submit">Submit</button>
@@ -155,22 +146,19 @@
       });
     });
 
-    // Password Toggle
-    const toggle = document.getElementById("togglePassword");
-    const pwdInput = document.getElementById("password");
-    const eyeIcon = document.getElementById("eyeIcon");
-
-    toggle.addEventListener("click", () => {
-      const isPassword = pwdInput.type === "password";
-      pwdInput.type = isPassword ? "text" : "password";
-
-      eyeIcon.setAttribute(
-        "d",
-        isPassword
-          ? "M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 13c-3.03 0-5.5-2.47-5.5-5.5S8.97 6.5 12 6.5s5.5 2.47 5.5 5.5-2.47 5.5-5.5 5.5z"
-          : "M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
-      );
-    });
+    function togglePassword() {
+      const pwdInput = document.getElementById("password");
+      const eyeIcon = document.getElementById("eyeIcon");
+      if (pwdInput.type === "password") {
+        pwdInput.type = "text";
+        eyeIcon.innerHTML = `<path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+                             <line x1="4" y1="4" x2="20" y2="20" stroke="#000" stroke-width="2"/>`;
+      } else {
+        pwdInput.type = "password";
+        eyeIcon.innerHTML = `<path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+                             <circle cx="12" cy="12" r="2.5"/>`;
+      }
+    }
   </script>
 </body>
 </html>
