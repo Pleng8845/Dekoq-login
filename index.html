@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DekoQ Login</title>
   <style>
     * {
@@ -23,7 +23,6 @@
     .container {
       text-align: center;
       color: white;
-      margin-bottom: 1rem;
     }
 
     .container h1 {
@@ -33,7 +32,6 @@
 
     .container p {
       font-size: 1.2rem;
-      margin-top: 0.5rem;
       margin-bottom: 2rem;
     }
 
@@ -46,141 +44,110 @@
       max-width: 400px;
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
-    }
-
     label {
       font-weight: bold;
       margin-bottom: 0.3rem;
       color: #000;
-      text-align: left;
       display: block;
+      font-size: 1rem;
     }
 
-    .input-group {
+    .input-wrapper {
       position: relative;
-      width: 100%;
-      height: 48px;
       margin-bottom: 1.2rem;
+      height: 48px;
     }
 
     input[type="email"],
     input[type="password"] {
       width: 100%;
       height: 100%;
+      padding: 0 2.5rem 0 0.8rem;
       font-size: 1rem;
-      padding: 0 3rem 0 1rem;
       border: 1px solid #ccc;
       border-radius: 8px;
-      text-align: left;
+      line-height: 1.2;
+      transition: none;
     }
 
-    .toggle-password {
+    .toggle-eye {
       position: absolute;
       top: 50%;
       right: 10px;
       transform: translateY(-50%);
-      background: none;
-      border: none;
-      padding: 0;
-      margin: 0;
       cursor: pointer;
       width: 24px;
       height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .toggle-password svg {
+    .toggle-eye svg {
       width: 24px;
       height: 24px;
-      fill: #f2c94c;
     }
 
-    .toggle-password.closed svg {
-      fill: #222;
+    .hidden {
+      display: none;
     }
 
-    button[type="submit"] {
+    .submit-btn {
       width: 100%;
-      padding: 0.8rem;
-      background: #222;
+      padding: 1rem;
+      font-size: 1rem;
+      background: #000;
       color: white;
       border: none;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 1rem;
       border-radius: 8px;
-      margin-top: 0.5rem;
+      cursor: pointer;
+      font-weight: bold;
     }
 
-    button[type="submit"]:hover {
-      background: #000;
+    .submit-btn:hover {
+      background: #333;
     }
   </style>
 </head>
 <body>
-  <div>
-    <div class="container">
-      <h1>DekoQ</h1>
-      <p>Welcome!</p>
-    </div>
+  <div class="container">
+    <h1>DekoQ</h1>
+    <p>Welcome!</p>
     <div class="login-box">
-      <form id="form">
-        <label for="email">Username/Email</label>
-        <div class="input-group">
-          <input type="email" id="email" name="email" required placeholder="Username or Email" />
+      <form>
+        <label for="email">Username or Email</label>
+        <div class="input-wrapper">
+          <input type="email" id="email" placeholder="Username or Email" required />
         </div>
 
         <label for="password">Password</label>
-        <div class="input-group">
-          <input type="password" id="password" name="password" required placeholder="Password" />
-          <button type="button" class="toggle-password" onclick="togglePassword()" aria-label="Toggle Password">
-            <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M12 4.5C7.5 4.5 3.7 7.3 2 12c1.7 4.7 5.5 7.5 10 7.5s8.3-2.8 10-7.5c-1.7-4.7-5.5-7.5-10-7.5zm0 12c-2.5 0-4.5-2-4.5-4.5S9.5 7.5 12 7.5s4.5 2 4.5 4.5-2 4.5-4.5 4.5z"/>
+        <div class="input-wrapper">
+          <input type="password" id="password" placeholder="Password" required />
+          <div class="toggle-eye" onclick="togglePassword()">
+            <svg id="eye-open" xmlns="http://www.w3.org/2000/svg" fill="yellow" viewBox="0 0 24 24">
+              <path d="M12 4.5C7 4.5 2.7 8 1 12c1.7 4 6 7.5 11 7.5s9.3-3.5 11-7.5c-1.7-4-6-7.5-11-7.5zM12 17c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5z"/>
               <circle cx="12" cy="12" r="2.5"/>
             </svg>
-          </button>
+            <svg id="eye-closed" class="hidden" xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24">
+              <path d="M2 2l20 20-1.5 1.5-2.4-2.4c-1.6.9-3.4 1.4-5.1 1.4-5 0-9.3-3.5-11-7.5 1-2.3 2.8-4.3 5-5.7L3.5 3.5 2 2zm9.9 9.9l-2.8-2.8C8.4 9.6 8 10.7 8 12c0 2.2 1.8 4 4 4 .9 0 1.7-.3 2.4-.8l-2.5-2.5z"/>
+            </svg>
+          </div>
         </div>
 
-        <button type="submit">Submit</button>
+        <button type="submit" class="submit-btn">Submit</button>
       </form>
     </div>
   </div>
 
   <script>
-    const form = document.getElementById("form");
-    const passwordInput = document.getElementById("password");
-    const toggleBtn = document.querySelector(".toggle-password");
-    const eyeIcon = document.getElementById("eye-icon");
-
-    const scriptURL = "https://script.google.com/macros/s/AKfycbx9dmqEKmDTZSwoABl4h8WjTCFU2BMBYjo0atbklk863llEB7-zGpS1qDgF3o2XcgRm5A/exec";
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const email = form.email.value;
-      const password = form.password.value;
-
-      fetch(scriptURL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      })
-      .then(res => res.text())
-      .then(() => {
-        alert("ส่งข้อมูลสำเร็จแล้ว!");
-        form.reset();
-      })
-      .catch(err => {
-        alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
-        console.error("Error:", err);
-      });
-    });
-
     function togglePassword() {
-      const isClosed = passwordInput.type === "password";
-      passwordInput.type = isClosed ? "text" : "password";
-      toggleBtn.classList.toggle("closed", !isClosed);
+      const pwdInput = document.getElementById("password");
+      const eyeOpen = document.getElementById("eye-open");
+      const eyeClosed = document.getElementById("eye-closed");
+      const isClosed = pwdInput.type === "password";
+      pwdInput.type = isClosed ? "text" : "password";
+      eyeOpen.classList.toggle("hidden", !isClosed);
+      eyeClosed.classList.toggle("hidden", isClosed);
     }
   </script>
 </body>
