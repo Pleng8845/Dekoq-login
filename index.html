@@ -8,6 +8,7 @@
     * {
       box-sizing: border-box;
     }
+
     body {
       margin: 0;
       padding: 0;
@@ -18,19 +19,22 @@
       align-items: center;
       height: 100vh;
     }
+
     .container {
       text-align: center;
       color: white;
     }
+
     .container h1 {
       font-size: 3rem;
       margin: 0;
     }
+
     .container p {
       font-size: 1.2rem;
-      margin-top: 0.5rem;
-      margin-bottom: 2rem;
+      margin: 0.5rem 0 2rem;
     }
+
     .login-box {
       background: white;
       padding: 2rem;
@@ -39,20 +43,21 @@
       width: 90%;
       max-width: 400px;
     }
+
     label {
       font-weight: bold;
-      margin-bottom: 0.3rem;
       color: #000;
       display: block;
       text-align: left;
-      font-size: 1rem;
+      margin-bottom: 0.4rem;
     }
+
     .input-group {
       position: relative;
-      width: 100%;
       margin-bottom: 1.2rem;
       height: 48px;
     }
+
     input[type="email"],
     input[type="password"] {
       width: 100%;
@@ -61,7 +66,9 @@
       font-size: 1rem;
       border: 1px solid #ccc;
       border-radius: 8px;
+      line-height: 1;
     }
+
     .toggle-eye {
       position: absolute;
       right: 10px;
@@ -70,20 +77,28 @@
       width: 24px;
       height: 24px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+
     .toggle-eye svg {
       width: 100%;
       height: 100%;
     }
+
     .eye-open path {
       fill: gold;
     }
+
     .eye-closed path {
       fill: black;
     }
+
     .hidden {
       display: none;
     }
+
     button {
       background: #000;
       color: white;
@@ -112,11 +127,15 @@
         <div class="input-group">
           <input type="password" id="password" placeholder="Password" required />
           <div class="toggle-eye" onclick="togglePassword()">
+            <!-- Eye Open -->
             <svg id="eye-open" class="eye-open" viewBox="0 0 64 64">
-              <path d="M32 16C19 16 8.6 25.8 4 32c4.6 6.2 15 16 28 16s23.4-9.8 28-16c-4.6-6.2-15-16-28-16zm0 26a10 10 0 1 1 0-20 10 10 0 0 1 0 20z"/>
+              <path d="M32 16C20 16 10 26 4 32c6 6 16 16 28 16s22-10 28-16c-6-6-16-16-28-16zm0 26a10 10 0 1 1 0-20 10 10 0 0 1 0 20z"/>
+              <path d="M24 20c-1-2 3-4 4-2s-1 3-4 2zM40 20c1-2-3-4-4-2s1 3 4 2z"/> <!-- ขนตา -->
             </svg>
+            <!-- Eye Closed -->
             <svg id="eye-closed" class="eye-closed hidden" viewBox="0 0 64 64">
-              <path d="M10 10 L54 54 M32 16C19 16 8.6 25.8 4 32c4.6 6.2 15 16 28 16s23.4-9.8 28-16c-4.6-6.2-15-16-28-16z"/>
+              <path d="M10 10 L54 54 M32 16C20 16 10 26 4 32c6 6 16 16 28 16s22-10 28-16c-6-6-16-16-28-16z"/>
+              <path d="M20 44c4-2 8-6 12-10 3-3 6-6 10-8"/> <!-- ลายขีดหลับตา -->
             </svg>
           </div>
         </div>
@@ -134,7 +153,6 @@
 
       const isHidden = pwdInput.type === "password";
       pwdInput.type = isHidden ? "text" : "password";
-
       eyeOpen.classList.toggle("hidden", !isHidden);
       eyeClosed.classList.toggle("hidden", isHidden);
     }
