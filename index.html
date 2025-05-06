@@ -55,16 +55,14 @@
       margin-bottom: 0.5rem;
     }
 
-    input,
-    .password-wrapper {
+    .input-group {
+      position: relative;
       width: 100%;
       height: 48px;
       margin-bottom: 1.2rem;
-      position: relative;
     }
 
-    input[type="email"],
-    .password-wrapper input {
+    .input-group input {
       width: 100%;
       height: 100%;
       font-size: 1rem;
@@ -73,7 +71,7 @@
       border-radius: 8px;
     }
 
-    .password-wrapper input {
+    .input-group.password input {
       padding-right: 3rem;
     }
 
@@ -123,10 +121,12 @@
     <div class="login-box">
       <form id="form">
         <label for="email">Username / Email</label>
-        <input type="email" id="email" name="email" required placeholder="Username / Email" />
+        <div class="input-group">
+          <input type="email" id="email" name="email" required placeholder="Username / Email" />
+        </div>
 
         <label for="password">Password</label>
-        <div class="password-wrapper">
+        <div class="input-group password">
           <input type="password" id="password" name="password" required placeholder="Password" />
           <button type="button" class="toggle-password" onclick="togglePassword()" aria-label="Toggle password">
             <svg id="eye-icon" viewBox="0 0 24 24">
