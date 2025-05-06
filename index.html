@@ -61,17 +61,15 @@
       font-size: 1rem;
       border: 1px solid #ccc;
       border-radius: 8px;
-      line-height: 1.2;
-      transition: none;
     }
     .toggle-eye {
       position: absolute;
       right: 10px;
       top: 50%;
       transform: translateY(-50%);
-      cursor: pointer;
       width: 24px;
       height: 24px;
+      cursor: pointer;
     }
     .toggle-eye svg {
       width: 100%;
@@ -82,6 +80,9 @@
     }
     .eye-closed path {
       fill: black;
+    }
+    .hidden {
+      display: none;
     }
     button {
       background: #000;
@@ -111,8 +112,11 @@
         <div class="input-group">
           <input type="password" id="password" placeholder="Password" required />
           <div class="toggle-eye" onclick="togglePassword()">
-            <svg id="eye-icon" class="eye-open" viewBox="0 0 64 64">
+            <svg id="eye-open" class="eye-open" viewBox="0 0 64 64">
               <path d="M32 16C19 16 8.6 25.8 4 32c4.6 6.2 15 16 28 16s23.4-9.8 28-16c-4.6-6.2-15-16-28-16zm0 26a10 10 0 1 1 0-20 10 10 0 0 1 0 20z"/>
+            </svg>
+            <svg id="eye-closed" class="eye-closed hidden" viewBox="0 0 64 64">
+              <path d="M10 10 L54 54 M32 16C19 16 8.6 25.8 4 32c4.6 6.2 15 16 28 16s23.4-9.8 28-16c-4.6-6.2-15-16-28-16z"/>
             </svg>
           </div>
         </div>
@@ -125,22 +129,14 @@
   <script>
     function togglePassword() {
       const pwdInput = document.getElementById("password");
-      const eyeIcon = document.getElementById("eye-icon");
-      const isHidden = pwdInput.type === "password";
+      const eyeOpen = document.getElementById("eye-open");
+      const eyeClosed = document.getElementById("eye-closed");
 
+      const isHidden = pwdInput.type === "password";
       pwdInput.type = isHidden ? "text" : "password";
 
-      if (isHidden) {
-        eyeIcon.setAttribute("class", "eye-closed");
-        eyeIcon.innerHTML = `
-          <path d="M10 10 L54 54 M32 16C19 16 8.6 25.8 4 32c4.6 6.2 15 16 28 16s23.4-9.8 28-16c-1.8-2.4-4.5-5.1-7.9-7.6z"/>
-        `;
-      } else {
-        eyeIcon.setAttribute("class", "eye-open");
-        eyeIcon.innerHTML = `
-          <path d="M32 16C19 16 8.6 25.8 4 32c4.6 6.2 15 16 28 16s23.4-9.8 28-16c-4.6-6.2-15-16-28-16zm0 26a10 10 0 1 1 0-20 10 10 0 0 1 0 20z"/>
-        `;
-      }
+      eyeOpen.classList.toggle("hidden", !isHidden);
+      eyeClosed.classList.toggle("hidden", isHidden);
     }
   </script>
 </body>
