@@ -74,14 +74,15 @@
       background: none;
       border: none;
       cursor: pointer;
-      padding: 0;
       height: 24px;
       width: 24px;
+      padding: 0;
     }
 
-    .toggle-password img {
-      height: 100%;
-      width: auto;
+    .toggle-password svg {
+      width: 100%;
+      height: auto;
+      fill: #ffcc00; /* สีเหลือง */
     }
 
     button[type="submit"] {
@@ -114,7 +115,10 @@
         <div class="input-wrapper">
           <input type="password" id="password" name="password" required placeholder="Password" />
           <button type="button" class="toggle-password" onclick="togglePassword()">
-            <img id="eye-icon" src="https://cdn-icons-png.flaticon.com/512/709/709612.png" alt="eye" />
+            <svg id="eye-icon" viewBox="0 0 24 24">
+              <path d="M12 5C5 5 2 12 2 12s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+              <circle cx="12" cy="12" r="2.5"/>
+            </svg>
           </button>
         </div>
 
@@ -124,17 +128,17 @@
   </div>
 
   <script>
-    function togglePassword() {
-      const passwordInput = document.getElementById("password");
-      const eyeIcon = document.getElementById("eye-icon");
+    const passwordInput = document.getElementById("password");
+    const eyeIcon = document.getElementById("eye-icon");
 
-      if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        eyeIcon.src = "https://cdn-icons-png.flaticon.com/512/159/159604.png"; // closed eye
-      } else {
-        passwordInput.type = "password";
-        eyeIcon.src = "https://cdn-icons-png.flaticon.com/512/709/709612.png"; // open eye
-      }
+    let isPasswordVisible = false;
+
+    function togglePassword() {
+      isPasswordVisible = !isPasswordVisible;
+      passwordInput.type = isPasswordVisible ? "text" : "password";
+      eyeIcon.innerHTML = isPasswordVisible
+        ? '<path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/>'
+        : '<path d="M12 5C5 5 2 12 2 12s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/><circle cx="12" cy="12" r="2.5"/>';
     }
   </script>
 </body>
