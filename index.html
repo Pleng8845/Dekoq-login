@@ -2,67 +2,62 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DekoQ Login</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #007BFF, #0056b3);
-      font-family: 'Arial', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       height: 100vh;
-    }
-    .container {
-      text-align: center;
-      color: white;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #007BFF, #0056b3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .login-box {
       background: white;
-      padding: 2rem;
       border-radius: 12px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      padding: 2rem;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
       width: 90%;
       max-width: 400px;
     }
-    label {
-      font-weight: bold;
-      margin-bottom: 0.3rem;
+    .login-box h2 {
+      margin: 0 0 1rem;
       color: #000;
+    }
+    label {
       display: block;
-      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: #000;
     }
     .input-group {
       position: relative;
-      width: 100%;
-      height: 48px;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
     }
     input[type="email"],
     input[type="password"] {
       width: 100%;
-      height: 100%;
+      height: 48px;
       font-size: 1rem;
-      padding: 0.8rem 2.5rem 0.8rem 1rem;
+      padding: 0 2.5rem 0 1rem;
       border: 1px solid #ccc;
       border-radius: 8px;
     }
     .toggle-password {
       position: absolute;
-      right: 10px;
       top: 50%;
+      right: 10px;
       transform: translateY(-50%);
       width: 24px;
       height: 24px;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
     }
     .toggle-password svg {
       width: 20px;
@@ -70,47 +65,45 @@
       fill: #333;
     }
     .hidden {
-      visibility: hidden;
+      display: none;
     }
     button {
       width: 100%;
       padding: 0.8rem;
-      background-color: #000;
+      font-size: 1rem;
+      font-weight: bold;
+      background: #000;
       color: white;
       border: none;
-      font-weight: bold;
       border-radius: 8px;
-      font-size: 1rem;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="login-box">
-      <form>
-        <div class="input-group">
-          <label for="email">Username/Email</label>
-          <input type="email" id="email" name="email" required />
+  <div class="login-box">
+    <h2>DekoQ</h2>
+    <p>Welcome!</p>
+    <form>
+      <div class="input-group">
+        <label for="email">Username/Email</label>
+        <input type="email" id="email" required />
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required />
+        <div class="toggle-password" onclick="togglePassword()">
+          <svg id="eye-show" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 4.5C7 4.5 2.73 8.11 1 12c1.73 3.89 6 7.5 11 7.5s9.27-3.61 11-7.5C21.27 8.11 17 4.5 12 4.5zm0 12a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/>
+            <circle cx="12" cy="12" r="2.5"/>
+          </svg>
+          <svg id="eye-hide" class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 6a9.77 9.77 0 0 0-4.5 1.11L5 5.61 3.59 7 7 10.41A4.48 4.48 0 0 0 8.11 15l1.43 1.43A9.77 9.77 0 0 0 12 18c5 0 9.27-3.61 11-7.5a11.46 11.46 0 0 0-2.09-3.11l1.45-1.45L19.9 5.9l-2.35 2.35A9.77 9.77 0 0 0 12 6zM12 16a4.5 4.5 0 0 1-3.18-7.68L14.68 14A4.46 4.46 0 0 1 12 16z"/>
+          </svg>
         </div>
-
-        <div class="input-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" required />
-          <div class="toggle-password" onclick="togglePassword()">
-            <svg id="eye-show" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M12 4.5C7 4.5 2.73 8.11 1 12c1.73 3.89 6 7.5 11 7.5s9.27-3.61 11-7.5C21.27 8.11 17 4.5 12 4.5zm0 12a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/>
-              <circle cx="12" cy="12" r="2.5"/>
-            </svg>
-            <svg id="eye-hide" class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M12 6a9.77 9.77 0 0 0-4.5 1.11L5 5.61 3.59 7 7 10.41A4.48 4.48 0 0 0 8.11 15l1.43 1.43A9.77 9.77 0 0 0 12 18c5 0 9.27-3.61 11-7.5a11.46 11.46 0 0 0-2.09-3.11l1.45-1.45L19.9 5.9l-2.35 2.35A9.77 9.77 0 0 0 12 6zM12 16a4.5 4.5 0 0 1-3.18-7.68L14.68 14A4.46 4.46 0 0 1 12 16z"/>
-            </svg>
-          </div>
-        </div>
-
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
   </div>
 
   <script>
