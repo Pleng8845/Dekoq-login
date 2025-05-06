@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DekoQ Login</title>
   <style>
     * {
@@ -21,16 +21,6 @@
     .container {
       text-align: center;
       color: white;
-      margin-bottom: 1rem;
-    }
-    .container h1 {
-      font-size: 3rem;
-      margin: 0;
-    }
-    .container p {
-      font-size: 1.2rem;
-      margin-top: 0.5rem;
-      margin-bottom: 2rem;
     }
     .login-box {
       background: white;
@@ -44,8 +34,8 @@
       font-weight: bold;
       margin-bottom: 0.3rem;
       color: #000;
-      text-align: left;
       display: block;
+      font-size: 1rem;
     }
     .input-group {
       position: relative;
@@ -58,72 +48,64 @@
       width: 100%;
       height: 100%;
       font-size: 1rem;
-      padding: 0 3rem 0 1rem;
+      padding: 0.8rem 2.5rem 0.8rem 1rem;
       border: 1px solid #ccc;
       border-radius: 8px;
-      line-height: 1.2;
     }
-    .toggle-eye {
+    .toggle-password {
       position: absolute;
-      top: 0;
-      right: 0;
-      width: 3rem;
-      height: 100%;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 24px;
+      height: 24px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: none;
-      border: none;
       cursor: pointer;
-      padding: 0;
     }
-    .eye-icon {
+    .toggle-password svg {
       width: 20px;
       height: 20px;
       fill: #333;
     }
-    .eye-icon.hidden {
-      display: none;
+    .hidden {
+      visibility: hidden;
     }
-    button[type="submit"] {
+    button {
       width: 100%;
       padding: 0.8rem;
-      background: #222;
+      background-color: #000;
       color: white;
       border: none;
       font-weight: bold;
-      cursor: pointer;
-      font-size: 1rem;
       border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div>
-    <div class="container">
-      <h1>DekoQ</h1>
-      <p>Welcome!</p>
-    </div>
+  <div class="container">
     <div class="login-box">
-      <form id="form">
-        <label for="email">Username/Email</label>
+      <form>
         <div class="input-group">
-          <input type="email" id="email" name="email" placeholder="Value" required />
+          <label for="email">Username/Email</label>
+          <input type="email" id="email" name="email" required />
         </div>
 
-        <label for="password">Password</label>
         <div class="input-group">
-          <input type="password" id="password" name="password" placeholder="Value" required />
-          <button type="button" class="toggle-eye" onclick="togglePassword()">
-            <!-- ตาเปิด -->
-            <svg id="eye-show" class="eye-icon" viewBox="0 0 24 24">
-              <path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12a5 5 0 110-10 5 5 0 010 10z"/>
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+          <div class="toggle-password" onclick="togglePassword()">
+            <svg id="eye-show" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 4.5C7 4.5 2.73 8.11 1 12c1.73 3.89 6 7.5 11 7.5s9.27-3.61 11-7.5C21.27 8.11 17 4.5 12 4.5zm0 12a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/>
+              <circle cx="12" cy="12" r="2.5"/>
             </svg>
-            <!-- ตาปิด -->
-            <svg id="eye-hide" class="eye-icon hidden" viewBox="0 0 24 24">
-              <path d="M1 1l22 22-1.5 1.5-3.1-3.1C17.2 23.3 14.7 24 12 24 5 24 1 17 1 17s1.5-2.6 4.3-4.6L2.4 6.5 1 1zm11 7c1.7 0 3 1.3 3 3 0 .5-.1 1-.4 1.4l-4-4c.4-.3.9-.4 1.4-.4zM5.6 9.8L8 12.2c-.4.3-.7.7-.9 1.2C5.4 13 4 14.3 4 14.3S5.8 18 12 18c1.9 0 3.6-.6 5.1-1.6l1.4 1.4C16.8 19.7 14.5 20 12 20c-7 0-11-7-11-7s1.6-3.5 4.6-5.2z"/>
+            <svg id="eye-hide" class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 6a9.77 9.77 0 0 0-4.5 1.11L5 5.61 3.59 7 7 10.41A4.48 4.48 0 0 0 8.11 15l1.43 1.43A9.77 9.77 0 0 0 12 18c5 0 9.27-3.61 11-7.5a11.46 11.46 0 0 0-2.09-3.11l1.45-1.45L19.9 5.9l-2.35 2.35A9.77 9.77 0 0 0 12 6zM12 16a4.5 4.5 0 0 1-3.18-7.68L14.68 14A4.46 4.46 0 0 1 12 16z"/>
             </svg>
-          </button>
+          </div>
         </div>
 
         <button type="submit">Submit</button>
@@ -136,7 +118,6 @@
       const pwdInput = document.getElementById("password");
       const showIcon = document.getElementById("eye-show");
       const hideIcon = document.getElementById("eye-hide");
-
       const isHidden = pwdInput.type === "password";
       pwdInput.type = isHidden ? "text" : "password";
       showIcon.classList.toggle("hidden", !isHidden);
