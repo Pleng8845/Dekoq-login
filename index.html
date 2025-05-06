@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DekoQ Login</title>
   <style>
     * {
@@ -22,21 +22,20 @@
       text-align: center;
       color: white;
     }
-    .container h1 {
-      font-size: 3rem;
-      margin: 0;
-    }
-    .container p {
-      font-size: 1.2rem;
-      margin: 0.5rem 0 2rem;
-    }
     .login-box {
       background: white;
       padding: 2rem;
       border-radius: 12px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
       width: 90%;
       max-width: 400px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    p {
+      margin: 0 0 2rem;
     }
     label {
       font-weight: bold;
@@ -50,9 +49,10 @@
       position: relative;
       width: 100%;
       height: 48px;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1rem;
     }
-    .input-group input {
+    input[type="email"],
+    input[type="password"] {
       width: 100%;
       height: 100%;
       padding: 0 2.5rem 0 1rem;
@@ -62,60 +62,63 @@
     }
     .toggle-password {
       position: absolute;
-      top: 50%;
       right: 10px;
+      top: 50%;
       transform: translateY(-50%);
-      background: none;
-      border: none;
-      padding: 0;
-      cursor: pointer;
       width: 24px;
       height: 24px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .toggle-password svg {
-      width: 100%;
-      height: 100%;
+      width: 24px;
+      height: 24px;
     }
     .hidden {
       display: none;
     }
-    button[type="submit"] {
+    button {
       width: 100%;
-      padding: 1rem;
       background: #000;
       color: white;
+      padding: 0.8rem;
+      font-size: 1rem;
       border: none;
       border-radius: 8px;
-      font-size: 1rem;
-      font-weight: bold;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>DekoQ</h1>
-    <p>Welcome!</p>
     <div class="login-box">
+      <h1>DekoQ</h1>
+      <p>Welcome!</p>
       <form>
         <label for="email">Username/Email</label>
         <div class="input-group">
-          <input type="email" id="email" name="email" required placeholder="Username or Email" />
+          <input type="email" id="email" placeholder="Username or Email" required />
         </div>
-
         <label for="password">Password</label>
         <div class="input-group">
-          <input type="password" id="password" name="password" required placeholder="Password" />
-          <button type="button" class="toggle-password" onclick="togglePassword()" aria-label="Toggle password">
-            <svg id="eye-show" viewBox="0 0 24 24" fill="#888">
-              <path d="M12 4.5C6.5 4.5 2 9 2 12s4.5 7.5 10 7.5 10-4.5 10-7.5-4.5-7.5-10-7.5zm0 13c-3 0-5.5-2.5-5.5-5.5S9 6.5 12 6.5s5.5 2.5 5.5 5.5-2.5 5.5-5.5 5.5zm0-9c-2 0-3.5 1.5-3.5 3.5S10 15.5 12 15.5 15.5 14 15.5 12 14 8.5 12 8.5z"/>
+          <input type="password" id="password" placeholder="Password" required />
+          <div class="toggle-password" onclick="togglePassword()">
+            <svg id="eye-show" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/>
+              <circle cx="12" cy="12" r="2"/>
+              <path d="M10 9 q1-1 2 0" stroke-width="1"/>
+              <path d="M13.5 9 l0.5 -0.5" stroke-width="1"/>
+              <path d="M10.5 9 l-0.5 -0.5" stroke-width="1"/>
             </svg>
-            <svg id="eye-hide" viewBox="0 0 24 24" fill="#888" class="hidden">
-              <path d="M2 4.27L3.28 3 21 20.72 19.73 22l-2.6-2.6A9.88 9.88 0 0112 19.5C6.5 19.5 2 15 2 12c.6-1.1 1.4-2.1 2.3-3l1.9 1.9A5 5 0 0012 17c1.2 0 2.3-.4 3.2-1.1L2 4.27z"/>
+            <svg id="eye-hide" class="hidden" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/>
+              <path d="M4 15c.5-1 1-2 2-2s1.5 1 2 2"/>
+              <line x1="1" y1="1" x2="23" y2="23"/>
             </svg>
-          </button>
+          </div>
         </div>
-
         <button type="submit">Submit</button>
       </form>
     </div>
@@ -123,15 +126,13 @@
 
   <script>
     function togglePassword() {
-      const pwdInput = document.getElementById("password");
-      const eyeShow = document.getElementById("eye-show");
-      const eyeHide = document.getElementById("eye-hide");
-
-      const isHidden = pwdInput.type === "password";
-      pwdInput.type = isHidden ? "text" : "password";
-
-      eyeShow.classList.toggle("hidden", !isHidden);
-      eyeHide.classList.toggle("hidden", isHidden);
+      const pwdInput = document.getElementById('password');
+      const showIcon = document.getElementById('eye-show');
+      const hideIcon = document.getElementById('eye-hide');
+      const isHidden = pwdInput.type === 'password';
+      pwdInput.type = isHidden ? 'text' : 'password';
+      showIcon.classList.toggle('hidden', !isHidden);
+      hideIcon.classList.toggle('hidden', isHidden);
     }
   </script>
 </body>
