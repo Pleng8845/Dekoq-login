@@ -58,6 +58,8 @@
       padding: 0.8rem 2.5rem 0.8rem 1rem;
       border: 1px solid #ccc;
       border-radius: 8px;
+      height: 44px;
+      line-height: 1.2rem;
     }
     .toggle-password {
       position: absolute;
@@ -67,6 +69,15 @@
       cursor: pointer;
       width: 20px;
       height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .toggle-password svg {
+      width: 20px;
+      height: 20px;
+      fill: #333;
+      pointer-events: none;
     }
     button[type="submit"] {
       width: 100%;
@@ -98,8 +109,8 @@
         <div class="input-wrapper">
           <input type="password" id="password" name="password" required placeholder="Value" />
           <span class="toggle-password" onclick="togglePassword()" id="toggleIcon">
-            <!-- Eye open -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#333" viewBox="0 0 16 16">
+            <!-- eye open -->
+            <svg viewBox="0 0 16 16">
               <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM8 5.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z"/>
             </svg>
           </span>
@@ -112,7 +123,7 @@
 
   <script>
     const form = document.querySelector("#form");
-    const scriptURL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec"; // << ใส่ URL ของคุณ
+    const scriptURL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec"; // ใส่ของคุณตรงนี้
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -126,7 +137,6 @@
       })
       .then(async response => {
         const text = await response.text();
-        console.log("Raw response text:", text);
         if (response.ok) {
           alert("ส่งข้อมูลสำเร็จแล้ว!");
           form.reset();
@@ -147,17 +157,15 @@
       if (pwdInput.type === "password") {
         pwdInput.type = "text";
         toggleIcon.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#333" viewBox="0 0 16 16">
+          <svg viewBox="0 0 16 16">
             <path d="M13.359 11.238C14.134 10.386 14.814 9.343 15.297 8c-.76-2.055-3.36-5.5-7.297-5.5a7.13 7.13 0 0 0-2.32.392l1.406 1.406A2.5 2.5 0 0 1 10.7 9.2l1.406 1.406c.382-.35.735-.734 1.153-1.157zM3.173 2.173 2.12 3.226l2.016 2.016C2.412 6.375 1.088 8 1.088 8s3 5.5 8 5.5c.81 0 1.57-.13 2.28-.362l2.02 2.02 1.06-1.06-12-12z"/>
-          </svg>
-        `;
+          </svg>`;
       } else {
         pwdInput.type = "password";
         toggleIcon.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#333" viewBox="0 0 16 16">
+          <svg viewBox="0 0 16 16">
             <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM8 5.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z"/>
-          </svg>
-        `;
+          </svg>`;
       }
     }
   </script>
