@@ -133,4 +133,21 @@
           </button>
         </div>
       </div>
-     
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const pwd = document.getElementById("password");
+      const eyeOpen = document.getElementById("eye-open");
+      const eyeClosed = document.getElementById("eye-closed");
+
+      const isClosed = pwd.type === "password";
+      pwd.type = isClosed ? "text" : "password";
+      eyeOpen.classList.toggle("hidden", !isClosed);
+      eyeClosed.classList.toggle("hidden", isClosed);
+    }
+  </script>
+</body>
+</html>
