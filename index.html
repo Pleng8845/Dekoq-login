@@ -8,7 +8,6 @@
     * {
       box-sizing: border-box;
     }
-
     body {
       margin: 0;
       padding: 0;
@@ -19,24 +18,19 @@
       align-items: center;
       height: 100vh;
     }
-
     .container {
       text-align: center;
       color: white;
-      margin-bottom: 1rem;
     }
-
     .container h1 {
       font-size: 3rem;
       margin: 0;
     }
-
     .container p {
       font-size: 1.2rem;
       margin-top: 0.5rem;
       margin-bottom: 2rem;
     }
-
     .login-box {
       background: white;
       padding: 2rem;
@@ -45,91 +39,82 @@
       width: 90%;
       max-width: 400px;
     }
-
     label {
       font-weight: bold;
       margin-bottom: 0.3rem;
       color: #000;
-      text-align: left;
       display: block;
+      text-align: left;
+      font-size: 1rem;
     }
-
     .input-group {
       position: relative;
+      width: 100%;
       margin-bottom: 1.2rem;
+      height: 48px;
     }
-
     input[type="email"],
     input[type="password"] {
       width: 100%;
+      height: 100%;
+      padding: 0 2.5rem 0 0.8rem;
       font-size: 1rem;
-      padding: 0.8rem 2.5rem 0.8rem 1.2rem;
       border: 1px solid #ccc;
       border-radius: 8px;
-      height: 44px;
+      line-height: 1.2;
+      transition: none;
     }
-
-    .toggle-password {
+    .toggle-eye {
       position: absolute;
-      top: 50%;
       right: 10px;
+      top: 50%;
       transform: translateY(-50%);
-      background: none;
-      border: none;
       cursor: pointer;
       width: 24px;
       height: 24px;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
-
-    .toggle-password svg {
-      width: 20px;
-      height: 20px;
-      fill: #f6c90e;
-    }
-
-    button[type="submit"] {
+    .toggle-eye svg {
       width: 100%;
-      padding: 0.8rem;
-      background: #222;
+      height: 100%;
+    }
+    .eye-open path {
+      fill: gold;
+    }
+    .eye-closed path {
+      fill: black;
+    }
+    button {
+      background: #000;
       color: white;
       border: none;
       font-weight: bold;
-      font-size: 1rem;
+      padding: 1rem;
+      width: 100%;
       border-radius: 8px;
+      font-size: 1.1rem;
       cursor: pointer;
-    }
-
-    button[type="submit"]:hover {
-      background: #000;
     }
   </style>
 </head>
 <body>
-  <div>
-    <div class="container">
-      <h1>DekoQ</h1>
-      <p>Welcome!</p>
-    </div>
+  <div class="container">
+    <h1>DekoQ</h1>
+    <p>Welcome!</p>
     <div class="login-box">
-      <form id="form">
+      <form>
         <label for="email">Username/Email</label>
         <div class="input-group">
-          <input type="email" id="email" name="email" required placeholder="Username or Email" />
+          <input type="email" id="email" placeholder="Username or Email" required />
         </div>
 
         <label for="password">Password</label>
         <div class="input-group">
-          <input type="password" id="password" name="password" required placeholder="Password" />
-          <button type="button" class="toggle-password" onclick="togglePassword()">
-            <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/>
-              <circle cx="12" cy="12" r="3"/>
+          <input type="password" id="password" placeholder="Password" required />
+          <div class="toggle-eye" onclick="togglePassword()">
+            <svg id="eye-icon" class="eye-open" viewBox="0 0 64 64">
+              <path d="M32 16C19 16 8.6 25.8 4 32c4.6 6.2 15 16 28 16s23.4-9.8 28-16c-4.6-6.2-15-16-28-16zm0 26a10 10 0 1 1 0-20 10 10 0 0 1 0 20z"/>
             </svg>
-          </button>
+          </div>
         </div>
 
         <button type="submit">Submit</button>
@@ -138,45 +123,25 @@
   </div>
 
   <script>
-    const form = document.querySelector("#form");
-    const passwordInput = document.getElementById("password");
-    const eyeIcon = document.getElementById("eye-icon");
-
-    const scriptURL = "https://script.google.com/macros/s/AKfycbx9dmqEKmDTZSwoABl4h8WjTCFU2BMBYjo0atbklk863llEB7-zGpS1qDgF3o2XcgRm5A/exec";
-
-    let isPasswordVisible = false;
-
     function togglePassword() {
-      isPasswordVisible = !isPasswordVisible;
-      passwordInput.type = isPasswordVisible ? "text" : "password";
-      eyeIcon.innerHTML = isPasswordVisible
-        ? `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/>`
-        : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><path d="M3 3l18 18" stroke="black" stroke-width="2"/>`;
+      const pwdInput = document.getElementById("password");
+      const eyeIcon = document.getElementById("eye-icon");
+      const isHidden = pwdInput.type === "password";
+
+      pwdInput.type = isHidden ? "text" : "password";
+
+      if (isHidden) {
+        eyeIcon.setAttribute("class", "eye-closed");
+        eyeIcon.innerHTML = `
+          <path d="M10 10 L54 54 M32 16C19 16 8.6 25.8 4 32c4.6 6.2 15 16 28 16s23.4-9.8 28-16c-1.8-2.4-4.5-5.1-7.9-7.6z"/>
+        `;
+      } else {
+        eyeIcon.setAttribute("class", "eye-open");
+        eyeIcon.innerHTML = `
+          <path d="M32 16C19 16 8.6 25.8 4 32c4.6 6.2 15 16 28 16s23.4-9.8 28-16c-4.6-6.2-15-16-28-16zm0 26a10 10 0 1 1 0-20 10 10 0 0 1 0 20z"/>
+        `;
+      }
     }
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const email = form.email.value;
-      const password = form.password.value;
-
-      fetch(scriptURL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      })
-      .then(response => {
-        if (response.ok) {
-          alert("ส่งข้อมูลสำเร็จแล้ว!");
-          form.reset();
-        } else {
-          alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
-        }
-      })
-      .catch(error => {
-        alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
-        console.error("Fetch Error!", error);
-      });
-    });
   </script>
 </body>
 </html>
