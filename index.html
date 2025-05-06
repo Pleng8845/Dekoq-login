@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DekoQ Login</title>
   <style>
     * {
@@ -40,7 +40,7 @@
       padding: 2rem;
       border-radius: 12px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-      width: 90%;
+      width: 100%;
       max-width: 400px;
     }
 
@@ -59,12 +59,13 @@
     .input-group {
       position: relative;
       margin-bottom: 1.5rem;
+      height: 48px;
     }
 
     input[type="email"],
     input[type="password"] {
       width: 100%;
-      height: 48px;
+      height: 100%;
       padding: 0 44px 0 1.2rem;
       font-size: 1rem;
       border-radius: 8px;
@@ -74,13 +75,13 @@
 
     .toggle-password {
       position: absolute;
-      right: 10px;
       top: 50%;
+      right: 10px;
       transform: translateY(-50%);
       width: 28px;
       height: 28px;
+      background: none;
       border: none;
-      background: transparent;
       cursor: pointer;
       padding: 0;
       display: flex;
@@ -89,8 +90,8 @@
     }
 
     .toggle-password svg {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       fill: #facc15; /* สีเหลือง */
     }
 
@@ -99,7 +100,7 @@
     }
 
     button[type="submit"] {
-      padding: 0.8rem;
+      height: 48px;
       background: #222;
       color: white;
       border: none;
@@ -122,24 +123,24 @@
     </div>
     <div class="login-box">
       <form id="form">
-        <label for="email">Username/Email</label>
+        <label for="email">Username / Email</label>
         <div class="input-group">
-          <input type="email" id="email" name="email" required placeholder="Enter your email" />
+          <input type="email" id="email" name="email" required placeholder="Username or Email" />
         </div>
 
         <label for="password">Password</label>
         <div class="input-group">
-          <input type="password" id="password" name="password" required placeholder="Enter your password" />
+          <input type="password" id="password" name="password" required placeholder="Password" />
           <button type="button" class="toggle-password" onclick="togglePassword()">
-            <!-- Eye Open SVG -->
+            <!-- Eye Open -->
             <svg id="eye-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M12 4.5C7 4.5 2.7 8 1 12c1.7 4 6 7.5 11 7.5s9.3-3.5 11-7.5c-1.7-4-6-7.5-11-7.5zm0 13c-3 0-5.5-2.5-5.5-5.5S9 6.5 12 6.5s5.5 2.5 5.5 5.5-2.5 5.5-5.5 5.5z"/>
               <circle cx="12" cy="12" r="2"/>
             </svg>
-            <!-- Eye Closed SVG -->
+            <!-- Eye Closed -->
             <svg id="eye-closed" class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M1 12s4-6.5 11-6.5S23 12 23 12s-4 6.5-11 6.5S1 12 1 12zm11-2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/>
-              <line x1="3" y1="3" x2="21" y2="21" stroke="black" stroke-width="2"/>
+              <line x1="3" y1="3" x2="21" y2="21" stroke="#333" stroke-width="2"/>
             </svg>
           </button>
         </div>
@@ -167,14 +168,14 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       })
-      .then(response => {
-        alert("ส่งข้อมูลสำเร็จแล้ว!");
-        form.reset();
-      })
-      .catch(error => {
-        alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
-        console.error("Error!", error.message);
-      });
+        .then(response => {
+          alert("ส่งข้อมูลสำเร็จแล้ว!");
+          form.reset();
+        })
+        .catch(error => {
+          alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
+          console.error("Error!", error.message);
+        });
     });
 
     function togglePassword() {
