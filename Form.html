@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DekoQ Form</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #f9f9f9;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #0056b3;
+      margin-bottom: 0.2rem;
+    }
+    p.subtitle {
+      margin-top: 0;
+      margin-bottom: 2rem;
+      color: #555;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+    }
+    input, select, textarea {
+      padding: 0.8rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      width: 100%;
+    }
+    textarea {
+      resize: vertical;
+    }
+    .full-width {
+      grid-column: span 2;
+    }
+    .note {
+      font-size: 0.8rem;
+      color: #888;
+      margin-top: 0.3rem;
+    }
+    button {
+      background: black;
+      color: white;
+      font-weight: bold;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 2rem;
+      float: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>DekoQ</h1>
+    <p class="subtitle">Project Detail</p>
+    <form>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Customer Type</label>
+          <select>
+            <option>-- Select --</option>
+            <option>Industrial</option>
+            <option>Department Store</option>
+            <option>Coffee Shop / Restaurant</option>
+            <option>Designer</option>
+            <option>Organizer</option>
+            <option>General Public</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Company Name (If applicable)</label>
+          <input type="text" />
+        </div>
+        <div class="form-group full-width">
+          <label>Full Name</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" />
+        </div>
+        <div class="form-group">
+          <label>Preferred Production Material</label>
+          <select>
+            <option>-- Select --</option>
+            <option>Fiberglass</option>
+            <option>Hard-Coated Foam</option>
+            <option>Foam EPS</option>
+            <option>3D Print (Plastic)</option>
+            <option>Laser Cut (Metal)</option>
+            <option>CNC (Wood)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Painting Process</label>
+          <select>
+            <option>-- Select --</option>
+            <option>TOA Paint</option>
+            <option>Pantone Worldwide</option>
+            <option>Chromium (Reflective/Mirror)</option>
+          </select>
+        </div>
+        <div class="form-group full-width">
+          <label>Approximate Dimensions (m)</label>
+          <div class="form-grid" style="grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
+            <input type="text" placeholder="Width (m)" />
+            <input type="text" placeholder="Length (m)" />
+            <input type="text" placeholder="Height (m)" />
+          </div>
+        </div>
+        <div class="form-group full-width">
+          <label>Approximate Surface Area (m²) (if applicable)</label>
+          <input type="text" placeholder="Surface Area (m²)" />
+          <div class="note">* e.g., 2.5 m² or 1.2 m²</div>
+        </div>
+        <div class="form-group">
+          <label>Work Complexity</label>
+          <select>
+            <option>-- Select --</option>
+            <option>Easy / Simple</option>
+            <option>Medium</option>
+            <option>Hard / Complex</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Duration of Use</label>
+          <select>
+            <option>-- Select --</option>
+            <option>1 - 2 Days</option>
+            <option>Less than 1 week</option>
+            <option>7 - 30 Days</option>
+            <option>2 - 3 Months</option>
+            <option>Long-term / Permanent</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Delivery Option</label>
+          <select>
+            <option>-- Select --</option>
+            <option>Yes, please deliver</option>
+            <option>No, I’ll pick it up</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Installation Type</label>
+          <select>
+            <option>-- Select --</option>
+            <option>Indoor</option>
+            <option>Outdoor</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Quantity</label>
+          <input type="number" />
+        </div>
+        <div class="form-group">
+          <label>Preferred Delivery Date</label>
+          <input type="date" />
+        </div>
+        <div class="form-group full-width">
+          <label>Delivery Address (if applicable)</label>
+          <input type="text" />
+        </div>
+        <div class="form-group full-width">
+          <label>Additional Notes</label>
+          <textarea rows="3"></textarea>
+        </div>
+        <div class="form-group full-width">
+          <label>Upload Files</label>
+          <input type="file" multiple accept=".jpg,.jpeg,.png,.pdf,.stp,.step,.dwg,.dxf" />
+        </div>
+      </div>
+      <button type="submit">SUBMIT</button>
+    </form>
+  </div>
+</body>
+</html>
