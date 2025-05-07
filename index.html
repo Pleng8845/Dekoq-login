@@ -107,13 +107,13 @@
         <div class="input-group">
           <input type="password" id="password" placeholder="Password" required />
           <button type="button" class="toggle-password" onclick="togglePassword()">
-            <!-- ตาเปิด -->
+            <!-- Eye open -->
             <svg id="eye-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M12 4C6.5 4 2 8 1 12c1 4 5.5 8 11 8s10-4 11-8c-1-4-5.5-8-11-8zm0 11c-1.7 0-3-1.3-3-3s1.3-3 3-3
               3 1.3 3 3-1.3 3-3 3z"/>
               <circle cx="12" cy="12" r="1"/>
             </svg>
-            <!-- ตาปิด -->
+            <!-- Eye closed -->
             <svg id="eye-closed" class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M12 4C6.5 4 2 8 1 12c1 4 5.5 8 11 8s10-4 11-8c-1-4-5.5-8-11-8zM12 15c-1.7 0-3-1.3-3-3s1.3-3 3-3
               3 1.3 3 3-1.3 3-3 3z"/>
@@ -137,10 +137,11 @@
       eyeOpen.classList.toggle("hidden", !isClosed);
       eyeClosed.classList.toggle("hidden", isClosed);
     }
-  <script>
-  function redirectToForm(event) {
-    event.preventDefault();
-    window.location.href = "Form.html";
-  }
+
+    function redirectToForm(event) {
+      event.preventDefault();
+      window.location.href = "Form.html"; // ชื่อไฟล์ฟอร์มที่ต้องมีใน repo
+    }
+  </script>
 </body>
 </html>
