@@ -97,7 +97,7 @@
   <h1>DekoQ</h1>
   <p>Welcome!</p>
   <div class="login-box">
-    <form>
+    <form onsubmit="redirectToForm(event)">
       <div class="form-group">
         <label for="email">Username / Email</label>
         <input type="text" id="email" placeholder="Username or Email" required />
@@ -137,6 +137,10 @@
       eyeOpen.classList.toggle("hidden", !isClosed);
       eyeClosed.classList.toggle("hidden", isClosed);
     }
-  </script>
+  <script>
+  function redirectToForm(event) {
+    event.preventDefault();
+    window.location.href = "Form.html";
+  }
 </body>
 </html>
