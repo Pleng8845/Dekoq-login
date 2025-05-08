@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DekoQ Form</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -51,12 +49,8 @@
       border-radius: 6px;
       width: 100%;
     }
-    textarea {
-      resize: vertical;
-    }
-    .full-width {
-      grid-column: span 2;
-    }
+    textarea { resize: vertical; }
+    .full-width { grid-column: span 2; }
     .note {
       font-size: 0.8rem;
       color: #888;
@@ -84,7 +78,7 @@
       <div class="form-grid">
         <div class="form-group">
           <label>Customer Type</label>
-          <select>
+          <select required>
             <option>-- Select --</option>
             <option>Industrial</option>
             <option>Department Store</option>
@@ -100,19 +94,19 @@
         </div>
         <div class="form-group full-width">
           <label>Full Name</label>
-          <input type="text" />
+          <input type="text" required />
         </div>
         <div class="form-group">
           <label>Phone Number</label>
-          <input type="text" />
+          <input type="text" required />
         </div>
         <div class="form-group">
           <label>Email</label>
-          <input type="email" />
+          <input type="email" required />
         </div>
         <div class="form-group">
           <label>Preferred Production Material</label>
-          <select>
+          <select required>
             <option>-- Select --</option>
             <option>Fiberglass</option>
             <option>Hard-Coated Foam</option>
@@ -124,7 +118,7 @@
         </div>
         <div class="form-group">
           <label>Painting Process</label>
-          <select>
+          <select required>
             <option>-- Select --</option>
             <option>TOA Paint</option>
             <option>Pantone Worldwide</option>
@@ -146,7 +140,7 @@
         </div>
         <div class="form-group">
           <label>Work Complexity</label>
-          <select>
+          <select required>
             <option>-- Select --</option>
             <option>Easy / Simple</option>
             <option>Medium</option>
@@ -155,7 +149,7 @@
         </div>
         <div class="form-group">
           <label>Duration of Use</label>
-          <select>
+          <select required>
             <option>-- Select --</option>
             <option>1 - 2 Days</option>
             <option>Less than 1 week</option>
@@ -166,7 +160,7 @@
         </div>
         <div class="form-group">
           <label>Delivery Option</label>
-          <select>
+          <select required>
             <option>-- Select --</option>
             <option>Yes, please deliver</option>
             <option>No, I’ll pick it up</option>
@@ -174,7 +168,7 @@
         </div>
         <div class="form-group">
           <label>Installation Type</label>
-          <select>
+          <select required>
             <option>-- Select --</option>
             <option>Indoor</option>
             <option>Outdoor</option>
@@ -204,5 +198,51 @@
       <button type="submit">SUBMIT</button>
     </form>
   </div>
+
+  <script>
+    document.querySelector("form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        customerType: form[0].value,
+        companyName: form[1].value,
+        fullName: form[2].value,
+        phone: form[3].value,
+        email: form[4].value,
+        material: form[5].value,
+        painting: form[6].value,
+        width: form[7].value,
+        length: form[8].value,
+        height: form[9].value,
+        surface: form[10].value,
+        complexity: form[11].value,
+        duration: form[12].value,
+        delivery: form[13].value,
+        installation: form[14].value,
+        quantity: form[15].value,
+        deliveryDate: form[16].value,
+        address: form[17].value,
+        notes: form[18].value
+      };
+
+      fetch("https://script.google.com/macros/s/AKfycbzPmUS8-VRI25SqzcaI95IzNkW6xsGaG3TsCgS4vLqtghv_LDVTD4gYjP9_b3L6stHX/exec", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" }
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("ส่งข้อมูลเรียบร้อยแล้ว!");
+          form.reset();
+        } else {
+          alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
+        }
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        alert("การเชื่อมต่อมีปัญหา กรุณาลองใหม่");
+      });
+    });
+  </script>
 </body>
 </html>
